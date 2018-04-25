@@ -1,3 +1,5 @@
+package maze;
+
 public class Cell {
 	private Cell node;
 	private int x;
