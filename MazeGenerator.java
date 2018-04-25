@@ -1,5 +1,3 @@
-package sjsu.nguyen.cs146.project2;
-
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.ArrayList;

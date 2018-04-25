@@ -1,5 +1,3 @@
-package sjsu.nguyen.cs146.project2;
-
 public class Cell {
 	private Cell node;
 	private int x;
