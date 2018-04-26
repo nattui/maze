@@ -264,7 +264,7 @@ public class MazeGenerator {
 				} else if (maze2D[columnIndex][rowIndex] == "|") {
 					maze = maze + "|";
 				} else if (maze2D[columnIndex][rowIndex] == "#") {
-					// 
+					
 					if (columnIndex % 2 == 1 && rowIndex % 2 == 0) {
 						maze = maze + " ";
 					} else if (columnIndex % 2 == 0 && rowIndex % 2 == 1) {
