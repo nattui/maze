@@ -8,6 +8,7 @@ import java.util.Collections;
 
 public class MazeGenerator {
 // Jazzmine was here
+	// nat was her
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
