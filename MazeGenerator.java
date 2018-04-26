@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class MazeGenerator {
-
+// here
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
