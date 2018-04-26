@@ -15,11 +15,7 @@ public class MazeGenerator {
 		int size = scan.nextInt();
 		System.out.println("The size: " + size);
 
-		// Prints the string representation of the maze
-		System.out.println();
-		System.out.print(maze(size));
-		System.out.println();
-
+		// Constructs a new 2D array
 		String[][] maze2D = maze2D(size);
 
 		// Prints the 2D Array of the maze
@@ -40,32 +36,8 @@ public class MazeGenerator {
 		System.out.println("X-coordinate: " + v.getx() + ", Y-coordinate: " + v.gety());
 		System.out.println("isVisited: " + v.isVisited());
 
-		// 0 is NORTH
-		// 1 is EAST
-		// 2 is SOUTH
-		// 3 is WEST
 
-		// Prints 4 unique random numbers in the range 0 to 3
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		for (int i = 0; i < 4; i++) {
-			list.add(new Integer(i));
-		}
-		Collections.shuffle(list);
-		// Prints the every element in the list
-		for (int elements : list) {
-			System.out.println("The element: " + elements);
-		}
-
-		System.out.println("The size: " + list.size());
-
-		int removed = list.remove(0);
-
-		// Prints the every element in the list
-		for (int elements : list) {
-			System.out.println("Element: " + elements);
-		}
-
-		// Direction Unique Random
+		// Randomize Direction
 		ArrayList<String> direction = new ArrayList<>();
 		Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
 		Collections.shuffle(direction);
@@ -73,71 +45,26 @@ public class MazeGenerator {
 			System.out.println("DIRECTION: " + elements);
 		}
 
-		String dir = direction.remove(0);
-		System.out.println(dir == "NORTH");
-		System.out.println(dir == "SOUTH");
-		System.out.println(dir == "EAST");
-		System.out.println(dir == "WEST");
-
-		System.out.println("Removed: " + removed);
-		System.out.println();
-
 		// Prints out new maze
-		String[][] newMaze = generator(maze2D, size);
+		String[][] mazeGenerated = generator(maze2D, size);
 
-		for (String[] row : newMaze) {
+		// FINAL MAZE GENERATION in array2D
+		for (String[] row : mazeGenerated) {
 			System.out.println(Arrays.toString(row));
 		}
-	}
-
-	// String representation of maze
-	public static String maze(int size) {
-		String maze = "";
-		// 2D Array
-		for (int rowIndex = 0; rowIndex < (2 * size + 1); rowIndex++) {
-			for (int columnIndex = 0; columnIndex < (2 * size + 1); columnIndex++) {
-				// Start of maze
-				if (rowIndex == 0 && columnIndex == 1) {
-					maze = maze + "   ";
-					// End of maze
-				} else if (rowIndex == 2 * size && columnIndex == 2 * size - 1) {
-					maze = maze + "   ";
-					// Row is even
-				} else if (rowIndex % 2 == 0) {
-					// Column is even
-					if (columnIndex % 2 == 0) {
-						maze = maze + "+";
-						// Column is odd
-					} else {
-						maze = maze + "---";
-					}
-					// Row is odd
-				} else {
-					// Column is even
-					if (columnIndex % 2 == 0) {
-						maze = maze + "|";
-						// Column is odd
-					} else {
-						maze = maze + "   ";
-					}
-				}
-
-				// When columnIndex is at end, makes new line
-				if (columnIndex == (2 * size)) {
-					maze = maze + System.lineSeparator();
-				}
-			}
-		}
-
-		return maze;
+		
+		// Prints the string representation of maze
+		String mazeGeneratedStr = convert2D(mazeGenerated, size);
+		System.out.println();
+		System.out.println(mazeGeneratedStr);
 	}
 
 	// Converts maze into a 2D array
 	public static String[][] maze2D(int size) {
 		String[][] maze2D = new String[2 * size + 1][2 * size + 1];
 		// 2D Array
-		for (int rowIndex = 0; rowIndex < (2 * size + 1); rowIndex++) {
-			for (int columnIndex = 0; columnIndex < (2 * size + 1); columnIndex++) {
+		for (int columnIndex = 0; columnIndex < (2 * size + 1); columnIndex++) {
+			for (int rowIndex = 0; rowIndex < (2 * size + 1); rowIndex++) {
 				// Start of maze
 				if (rowIndex == 1 && columnIndex == 0) {
 					maze2D[columnIndex][rowIndex] = "S";
@@ -324,5 +251,39 @@ public class MazeGenerator {
 		}
 		System.out.println();
 		return current;
+	}
+	
+	public static String convert2D(String[][] maze2D, int size) {
+		String maze = "";
+		for (int columnIndex = 0; columnIndex < (2 * size + 1); columnIndex++) {
+			for (int rowIndex = 0; rowIndex < (2 * size + 1); rowIndex++) {
+				if (maze2D[columnIndex][rowIndex] == "+") {
+					maze = maze + "+";
+				} else if (maze2D[columnIndex][rowIndex] == "-") {
+					maze = maze + "---";
+				} else if (maze2D[columnIndex][rowIndex] == "|") {
+					maze = maze + "|";
+				} else if (maze2D[columnIndex][rowIndex] == "#") {
+					// 
+					if (columnIndex % 2 == 1 && rowIndex % 2 == 0) {
+						maze = maze + " ";
+					} else if (columnIndex % 2 == 0 && rowIndex % 2 == 1) {
+						maze = maze + " ";
+					} else {
+						maze = maze + "   ";
+					}
+					
+				} else if (maze2D[columnIndex][rowIndex] == "S"
+						|| maze2D[columnIndex][rowIndex] == "E") {
+					maze = maze + "   ";
+				}
+				
+				// When rowIndex is at end, makes a new line
+				if (rowIndex == (2*size)) {
+					maze = maze + System.lineSeparator();
+				}
+			}
+		}
+		return maze;
 	}
 }
