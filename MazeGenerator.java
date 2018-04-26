@@ -57,6 +57,7 @@ public class MazeGenerator {
 		String mazeGeneratedStr = convert2D(mazeGenerated, size);
 		System.out.println();
 		System.out.println(mazeGeneratedStr);
+		System.out.println("String representation of the generated maze");
 	}
 
 	// Converts maze into a 2D array
@@ -253,6 +254,7 @@ public class MazeGenerator {
 		return current;
 	}
 	
+	// Converts 2D array maze to string representation
 	public static String convert2D(String[][] maze2D, int size) {
 		String maze = "";
 		for (int columnIndex = 0; columnIndex < (2 * size + 1); columnIndex++) {
@@ -263,16 +265,16 @@ public class MazeGenerator {
 					maze = maze + "---";
 				} else if (maze2D[columnIndex][rowIndex] == "|") {
 					maze = maze + "|";
-				} else if (maze2D[columnIndex][rowIndex] == "#") {
-					// 
-					if (columnIndex % 2 == 1 && rowIndex % 2 == 0) {
+				} else if (maze2D[columnIndex][rowIndex] == "#" && columnIndex % 2 == 1) {
+					// Hash symbol and column is odd
+					if (rowIndex % 2 == 0) {
 						maze = maze + " ";
-					} else if (columnIndex % 2 == 0 && rowIndex % 2 == 1) {
-						maze = maze + " ";
-					} else {
+					} else if (rowIndex % 2 == 1) {
 						maze = maze + "   ";
 					}
-					
+				} else if(maze2D[columnIndex][rowIndex] == "#" && columnIndex % 2 == 0) {
+					// Hash symbol and column is even
+					maze = maze + "   ";
 				} else if (maze2D[columnIndex][rowIndex] == "S"
 						|| maze2D[columnIndex][rowIndex] == "E") {
 					maze = maze + "   ";
