@@ -184,6 +184,7 @@ public class MazeGenerator {
 		System.out.println("SIZE: " + size);
 		System.out.println("VISITED CELLS: " + visitedCells);
 		System.out.println();
+		
 		// NEED EDIT
 		while (visitedCells < totalCells) {
 
@@ -232,8 +233,8 @@ public class MazeGenerator {
 				System.out.println("Do not go NORTH because outside of range of the 2D array");
 				return validSpot(maze2D, size, current, direction);
 			}
-			if (!((maze2D[y - 3][x] == "-" && maze2D[y - 1][x] == "-")
-					&& (maze2D[y - 2][x - 1] == "|" && maze2D[y - 2][x + 1] == "|"))) {
+			if ((maze2D[y - 3][x] == "#" || maze2D[y - 1][x] == "#")
+					|| (maze2D[y - 2][x - 1] == "#" || maze2D[y - 2][x + 1] == "#")) {
 				System.out.println("Do not go NORTH because that cell is enclosed by walls");
 				return validSpot(maze2D, size, current, direction);
 			}
@@ -242,8 +243,8 @@ public class MazeGenerator {
 				System.out.println("Do not go EAST because outside of range of the 2D array");
 				return validSpot(maze2D, size, current, direction);
 			}
-			if (!((maze2D[y + 1][x + 2] == "-" && maze2D[y - 1][x + 2] == "-")
-					&& (maze2D[y][x + 1] == "|" && maze2D[y][x + 3] == "|"))) {
+			if (((maze2D[y + 1][x + 2] == "#" || maze2D[y - 1][x + 2] == "#")
+					|| (maze2D[y][x + 1] == "#" || maze2D[y][x + 3] == "#"))) {
 				System.out.println("Do not go EAST because that cell is enclosed by walls");
 				return validSpot(maze2D, size, current, direction);
 			}
@@ -252,8 +253,8 @@ public class MazeGenerator {
 				System.out.println("Do not go SOUTH because outside of range of the 2D array");
 				return validSpot(maze2D, size, current, direction);
 			}
-			if (!((maze2D[y + 1][x] == "-" && maze2D[y + 3][x] == "-")
-					&& (maze2D[y + 2][x - 1] == "|" && maze2D[y + 2][x + 1] == "|"))) {
+			if (((maze2D[y + 1][x] == "#" || maze2D[y + 3][x] == "#")
+					|| (maze2D[y + 2][x - 1] == "#" || maze2D[y + 2][x + 1] == "#"))) {
 				System.out.println("Do not go SOUTH because that cell is enclosed by walls");
 				return validSpot(maze2D, size, current, direction);
 			}
@@ -262,8 +263,8 @@ public class MazeGenerator {
 				System.out.println("Do not go WEST because outside of range of the 2D array");
 				return validSpot(maze2D, size, current, direction);
 			}
-			if (!((maze2D[y - 1][x - 2] == "-" && maze2D[y + 1][x - 2] == "-")
-					&& (maze2D[y][x - 3] == "|" && maze2D[y][x - 1] == "|"))) {
+			if (((maze2D[y - 1][x - 2] == "#" || maze2D[y + 1][x - 2] == "#")
+					|| (maze2D[y][x - 3] == "#" || maze2D[y][x - 1] == "#"))) {
 				System.out.println("Do not go WEST because that cell is enclosed by walls");
 				return validSpot(maze2D, size, current, direction);
 			}
@@ -276,7 +277,9 @@ public class MazeGenerator {
 
 		// Prints out the coordinates of the current cell object
 		System.out.println("    X-coordinate: " + current.getx() + ",     Y-coordinate: " + current.gety());
-
+		
+		maze2D[1][1] = "#";
+		
 		if (random == "NORTH") {
 			// NORTH and delete wall from bottom from next cell
 			current.setNext(new Cell(current.getx(), current.gety() - 1));
