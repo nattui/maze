@@ -280,7 +280,7 @@ public class MazeGenerator {
 					maze = maze + "   ";
 				}
 				
-				// When rowIndex is at end, makes a new line
+				// When rowIndex is at end, makes a new line DELETE
 				if (rowIndex == (2*size)) {
 					maze = maze + System.lineSeparator();
 				}
