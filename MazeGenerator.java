@@ -46,6 +46,12 @@ public class MazeGenerator {
 		
 		System.out.println(mazeGeneratedStr);
 		System.out.println("String representation of the generated maze");
+		
+		// String representation of DFS
+		System.out.println();
+		System.out.println(convert2D(mazeDFS));
+		System.out.println("String representation of DFS");
+		System.out.println();
 	}
 
 	// Prints the 2D array into the console
@@ -284,6 +290,8 @@ public class MazeGenerator {
 					maze = maze + "   ";
 				} else if (maze2D[columnIndex][rowIndex] == "S" || maze2D[columnIndex][rowIndex] == "E") {
 					maze = maze + "   ";
+				} else {
+					maze = maze + " " + maze2D[columnIndex][rowIndex] + " ";
 				}
 
 				// When rowIndex is at end AND columnIndex is not at end, add a new line
@@ -317,6 +325,7 @@ public class MazeGenerator {
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
 
+
 		while (visitedCells < totalCells) {
 			// Generates a unique direction
 			ArrayList<String> direction = new ArrayList<>();
@@ -335,7 +344,7 @@ public class MazeGenerator {
 				continue;
 			}
 
-			current = moveDFS(maze2D, current, random);
+			current = moveDFS(maze2D, current, random, visitedCells);
 			visitedCells = visitedCells + 1;
 			location.push(current);
 			
@@ -356,7 +365,7 @@ public class MazeGenerator {
 
 		// When the size of the list is 0, return -1
 		if (direction.size() == 0) {
-			maze2D[y][x] = "@";
+			
 			return "BACKTRACK";
 		}
 
@@ -402,12 +411,13 @@ public class MazeGenerator {
 		return random;
 	}
 
-	public static Cell moveDFS(String[][] maze2D, Cell current, String random) {
+	public static Cell moveDFS(String[][] maze2D, Cell current, String random, int count) {
 
 		// Prints out the coordinates of the current cell object
 		System.out.println(" X-coordinate: " + current.getx() + ", Y-coordinate: " + current.gety());
 
-		maze2D[1][1] = "#";
+		String path = Integer.toString(count % 10);
+		maze2D[1][1] = "0";
 
 		if (random == "NORTH") {
 			// NORTH and delete wall from bottom from next cell
@@ -417,7 +427,7 @@ public class MazeGenerator {
 			maze2D[2 * current.gety() + 2][2 * current.getx() + 1] = "#";
 
 			// DEBUGGING: Visualizing
-			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
 		} else if (random == "EAST") {
 			// EAST and delete wall from left from next cell
 			current.setNext(new Cell(current.getx() + 1, current.gety()));
@@ -426,7 +436,7 @@ public class MazeGenerator {
 			maze2D[2 * current.gety() + 1][2 * current.getx()] = "#";
 
 			// DEBUGGING: Visualizing
-			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
 		} else if (random == "SOUTH") {
 			// SOUTH and delete wall from top from next cell
 			current.setNext(new Cell(current.getx(), current.gety() + 1));
@@ -435,7 +445,7 @@ public class MazeGenerator {
 			maze2D[2 * current.gety()][2 * current.getx() + 1] = "#";
 
 			// DEBUGGING: Visualizing
-			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
 		} else if (random == "WEST") {
 			// WEST and delete wall from right from next cell
 			current.setNext(new Cell(current.getx() - 1, current.gety()));
@@ -444,7 +454,7 @@ public class MazeGenerator {
 			maze2D[2 * current.gety() + 1][2 * current.getx() + 2] = "#";
 
 			// DEBUGGING: Visualizing
-			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
 		}
 
 		// DEBUGGING: Printing maze at each step
