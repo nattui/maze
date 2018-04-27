@@ -325,7 +325,8 @@ public class MazeGenerator {
 				current = location.pop();
 				continue;
 			}
-			current = move(maze2D, current, random);
+			
+			current = moveDFS(maze2D, current, random);
 			visitedCells = visitedCells + 1;
 			location.push(current);
 			
@@ -395,5 +396,61 @@ public class MazeGenerator {
 		return random;
 	}
 	
+	public static Cell moveDFS(String[][] maze2D, Cell current, String random) {
+
+		// // Prints out the coordinates of the current cell object
+		// System.out.println(" X-coordinate: " + current.getx() + ", Y-coordinate: " +
+		// current.gety());
+
+		maze2D[1][1] = "#";
+
+		if (random == "NORTH") {
+			// NORTH and delete wall from bottom from next cell
+			current.setNext(new Cell(current.getx(), current.gety() - 1));
+			current = current.getNext();
+			// Breaks the bottom wall from next cell
+			maze2D[2 * current.gety() + 2][2 * current.getx() + 1] = "#";
+
+			// DEBUGGING: Visualizing
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+		} else if (random == "EAST") {
+			// EAST and delete wall from left from next cell
+			current.setNext(new Cell(current.getx() + 1, current.gety()));
+			current = current.getNext();
+			// Breaks the left wall from next cell
+			maze2D[2 * current.gety() + 1][2 * current.getx()] = "#";
+
+			// DEBUGGING: Visualizing
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+		} else if (random == "SOUTH") {
+			// SOUTH and delete wall from top from next cell
+			current.setNext(new Cell(current.getx(), current.gety() + 1));
+			current = current.getNext();
+			// Breaks the top wall from next cell
+			maze2D[2 * current.gety()][2 * current.getx() + 1] = "#";
+
+			// DEBUGGING: Visualizing
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+		} else if (random == "WEST") {
+			// WEST and delete wall from right from next cell
+			current.setNext(new Cell(current.getx() - 1, current.gety()));
+			current = current.getNext();
+			// Breaks the right wall from next cell
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 2] = "#";
+
+			// DEBUGGING: Visualizing
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+		}
+
+		// // DEBUGGING: Printing maze at each step
+		// System.out.println("NEW X-coordinate: " + current.getx() + ", NEW
+		// Y-coordinate: " + current.gety());
+		// for (String[] row : maze2D) {
+		// System.out.println(Arrays.toString(row));
+		// }
+		// System.out.println();
+
+		return current;
+	}
 	
 }
