@@ -39,10 +39,12 @@ public class MazeGenerator {
 		}
 
 		// Prints the string representation of maze
-		String mazeGeneratedStr = convert2D(mazeGenerated, size);
+		String mazeGeneratedStr = convert2D(mazeGenerated);
 		System.out.println();
 		System.out.println(mazeGeneratedStr);
 		System.out.println("String representation of the generated maze");
+		
+		
 	}
 
 	// Converts maze into a 2D array
@@ -241,10 +243,11 @@ public class MazeGenerator {
 	}
 
 	// Converts 2D array maze to string representation
-	public static String convert2D(String[][] maze2D, int size) {
+	public static String convert2D(String[][] maze2D) {
 		String maze = "";
-		for (int columnIndex = 0; columnIndex < (2 * size + 1); columnIndex++) {
-			for (int rowIndex = 0; rowIndex < (2 * size + 1); rowIndex++) {
+		int size = maze2D.length;
+		for (int columnIndex = 0; columnIndex < size; columnIndex++) {
+			for (int rowIndex = 0; rowIndex < size; rowIndex++) {
 				if (maze2D[columnIndex][rowIndex] == "+") {
 					maze = maze + "+";
 				} else if (maze2D[columnIndex][rowIndex] == "-") {
@@ -265,12 +268,14 @@ public class MazeGenerator {
 					maze = maze + "   ";
 				}
 
-				// When rowIndex is at end, makes a new line DELETE
-				if (rowIndex == (2 * size)) {
+				// When rowIndex is at end, makes a new line
+				if (rowIndex == (size-1)) {
 					maze = maze + System.lineSeparator();
 				}
 			}
 		}
 		return maze;
 	}
+	
+	
 }
