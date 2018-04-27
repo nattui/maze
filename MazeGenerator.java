@@ -272,9 +272,15 @@ public class MazeGenerator {
 					maze = maze + "   ";
 				}
 <<<<<<< HEAD
+<<<<<<< HEAD
 				
 				// When rowIndex is at end, makes a new line DELETE
 				if (rowIndex == (2 * size)) {
+=======
+
+				// When rowIndex is at end AND columnIndex is not at end, add a new line
+				if (rowIndex == (size - 1) && columnIndex != (size - 1)) {
+>>>>>>> 6958ad7e2873c1b6a2501777df1c105972c86432
 =======
 
 				// When rowIndex is at end AND columnIndex is not at end, add a new line
