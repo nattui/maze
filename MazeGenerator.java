@@ -10,7 +10,7 @@ public class MazeGenerator {
 
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
-		
+
 		// User input a size for the maze
 		Scanner scan = new Scanner(System.in);
 		System.out.print("Input a number: ");
@@ -25,14 +25,14 @@ public class MazeGenerator {
 		String[][] mazeGenerated = generator(maze2D);
 		print2D(mazeGenerated);
 		System.out.println("Generated Maze");
-		
+
 		// Prints the string representation of maze
 		String mazeGeneratedStr = convert2D(mazeGenerated);
 		System.out.println();
 		System.out.println(mazeGeneratedStr);
 		System.out.println("String representation of the generated maze");
 		System.out.println();
-		
+
 		// Delete the Hash symbol in the maze
 		mazeGenerated = emptyHash(mazeGenerated);
 		print2D(mazeGenerated);
@@ -44,7 +44,7 @@ public class MazeGenerator {
 			System.out.println(Arrays.toString(row));
 		}
 	}
-	
+
 	// Creates a 2D array with walls
 	public static String[][] maze2D(int size) {
 		String[][] maze2D = new String[2 * size + 1][2 * size + 1];
@@ -89,7 +89,7 @@ public class MazeGenerator {
 		System.out.println("-------------------------------------------------------------------");
 
 		Stack<Cell> location = new Stack<Cell>();
-		int size = (maze2D.length-1)/2;
+		int size = (maze2D.length - 1) / 2;
 		int totalCells = size * size;
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
@@ -125,8 +125,8 @@ public class MazeGenerator {
 
 	// Finds valid spot to move
 	public static String validSpot(String[][] maze2D, Cell current, ArrayList<String> direction) {
-		int size = (maze2D.length-1)/2;
-		
+		int size = (maze2D.length - 1) / 2;
+
 		int x = 2 * current.getx() + 1;
 		int y = 2 * current.gety() + 1;
 
@@ -148,7 +148,7 @@ public class MazeGenerator {
 			}
 			if ((maze2D[y - 3][x] == "#" || maze2D[y - 1][x] == "#")
 					|| (maze2D[y - 2][x - 1] == "#" || maze2D[y - 2][x + 1] == "#")) {
-				// System.out.println("Do not go NORTH because that cell is enclosed by walls");
+				// System.out.println("Do not go NORTH because that cell is not enclosed by walls");
 				return validSpot(maze2D, current, direction);
 			}
 		} else if (random == "EAST") {
@@ -159,7 +159,7 @@ public class MazeGenerator {
 			}
 			if (((maze2D[y + 1][x + 2] == "#" || maze2D[y - 1][x + 2] == "#")
 					|| (maze2D[y][x + 1] == "#" || maze2D[y][x + 3] == "#"))) {
-				// System.out.println("Do not go EAST because that cell is enclosed by walls");
+				// System.out.println("Do not go EAST because that cell is not enclosed by walls");
 				return validSpot(maze2D, current, direction);
 			}
 		} else if (random == "SOUTH") {
@@ -170,7 +170,7 @@ public class MazeGenerator {
 			}
 			if (((maze2D[y + 1][x] == "#" || maze2D[y + 3][x] == "#")
 					|| (maze2D[y + 2][x - 1] == "#" || maze2D[y + 2][x + 1] == "#"))) {
-				// System.out.println("Do not go SOUTH because that cell is enclosed by walls");
+				// System.out.println("Do not go SOUTH because that cell is not enclosed by walls");
 				return validSpot(maze2D, current, direction);
 			}
 		} else if (random == "WEST") {
@@ -181,7 +181,7 @@ public class MazeGenerator {
 			}
 			if (((maze2D[y - 1][x - 2] == "#" || maze2D[y + 1][x - 2] == "#")
 					|| (maze2D[y][x - 3] == "#" || maze2D[y][x - 1] == "#"))) {
-				// System.out.println("Do not go WEST because that cell is enclosed by walls");
+				// System.out.println("Do not go WEST because that cell is not enclosed by walls");
 				return validSpot(maze2D, current, direction);
 			}
 		}
@@ -294,44 +294,101 @@ public class MazeGenerator {
 		}
 		return maze2D;
 	}
-	
+
 	// Depth first Search
 	public static String[][] DFS(String[][] maze2D) {
 		Stack<Cell> location = new Stack<Cell>();
-		int size = (maze2D.length-1)/2;
+		int size = (maze2D.length - 1) / 2;
 		int totalCells = size * size;
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
-		
-		while (visitedCells < totalCells) {
 
+		while (visitedCells < totalCells) {
 			// Generates a unique direction
 			ArrayList<String> direction = new ArrayList<>();
 			Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
 			Collections.shuffle(direction);
 
+			// Finds a valid spot on the 2D array
 			String random = validSpot(maze2D, current, direction);
 
 			if (random == "BACKTRACK") {
 				// // DEBUGGING: Prints BACKTRACKING
 				// System.out.println("\t PROCESSS: " + random);
-
 				current = location.pop();
 				continue;
 			}
-
 			current = move(maze2D, current, random);
 			visitedCells = visitedCells + 1;
 			location.push(current);
+			
+			if (current.getx() == 2*size && current.gety() == 2*size) {
+				break;
+			}
 		}
-		
+
 		return maze2D;
 	}
-	
-	public static String[][] DFSValid(String[][] maze2D) {
-		
-		
-		
-		return null;
+
+	// Checks if DFS is valid
+	public static String DFSValid(String[][] maze2D, Cell current, ArrayList<String> direction) {
+		int size = (maze2D.length - 1) / 2;
+
+		int x = 2 * current.getx() + 1;
+		int y = 2 * current.gety() + 1;
+
+		// When the size of the list is 0, return -1
+		if (direction.size() == 0) {
+			maze2D[y][x] = "@";
+			return "BACKTRACK";
+			
+		}
+
+		String random = direction.remove(0);
+
+		// // DEBUGGING: Prints current direction
+		// System.out.println("DIRECTION: " + random);
+
+		if (random == "NORTH") {
+			if (current.gety() - 1 < 0) {
+				// System.out.println("Do not go NORTH because outside of range of the 2D
+				// array");
+				return validSpot(maze2D, current, direction);
+			}
+			if (maze2D[y-1][x] == " ") {
+				return random;
+			}
+		} else if (random == "EAST") {
+			if (current.getx() + 1 >= size) {
+				// System.out.println("Do not go EAST because outside of range of the 2D
+				// array");
+				return validSpot(maze2D, current, direction);
+			}
+			if (maze2D[y][x+1] == " ") {
+				return random;
+			}
+		} else if (random == "SOUTH") {
+			if (current.gety() + 1 >= size) {
+				// System.out.println("Do not go SOUTH because outside of range of the 2D
+				// array");
+				return validSpot(maze2D, current, direction);
+			}
+			if (maze2D[y+1][x] == " ") {
+				return random;
+			}
+		} else if (random == "WEST") {
+			if (current.getx() - 1 < 0) {
+				// System.out.println("Do not go WEST because outside of range of the 2D
+				// array");
+				return validSpot(maze2D, current, direction);
+			}
+			if (maze2D[y][x-1] == " ") {
+				return random;
+			}
+		}
+		return random;
+		//return validSpot(maze2D, current, direction);
 	}
+	
+	
 }
