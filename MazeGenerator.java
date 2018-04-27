@@ -36,6 +36,13 @@ public class MazeGenerator {
 		// Delete the Hash symbol in the maze
 		mazeGenerated = emptyHash(mazeGenerated);
 		print2D(mazeGenerated);
+		System.out.println("Empty Generated Maze");
+		System.out.println();
+		
+		// Depth First Search
+		String[][] mazeDFS = DFS(mazeGenerated);
+		print2D(mazeDFS);
+		System.out.println("HELLO");
 	}
 
 	// Prints the 2D array into the console
@@ -345,8 +352,8 @@ public class MazeGenerator {
 
 		String random = direction.remove(0);
 
-		// // DEBUGGING: Prints current direction
-		// System.out.println("DIRECTION: " + random);
+		// DEBUGGING: Prints current direction
+		System.out.println("DIRECTION: " + random);
 
 		if (random == "NORTH") {
 			if (current.gety() - 1 < 0) {
