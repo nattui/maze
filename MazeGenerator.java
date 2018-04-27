@@ -330,9 +330,8 @@ public class MazeGenerator {
 			visitedCells = visitedCells + 1;
 			location.push(current);
 			
-			System.out.println(" X-coordinate: " + current.getx() + ", Y-coordinate: " + current.gety());
-			if (current.getx() == size-1 && current.gety() == size-1) {
-				return maze2D;
+			if (current.getx() == 2*size && current.gety() == 2*size) {
+				break;
 			}
 		}
 
