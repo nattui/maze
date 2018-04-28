@@ -15,15 +15,15 @@ public class MazeGenerator {
 		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		int size = 0;
-		
+
 		do {
 			System.out.print("Input the size for the maze: ");
-		    while (!scan.hasNextInt()) {
-		    	System.out.println("Needs a valid integer for maze size (3 or Higher)");
-		    	System.out.print("Input the size for the maze: ");
-		        scan.next();
-		    }
-		    size = scan.nextInt();
+			while (!scan.hasNextInt()) {
+				System.out.println("Needs a valid integer for maze size (3 or Higher)");
+				System.out.print("Input the size for the maze: ");
+				scan.next();
+			}
+			size = scan.nextInt();
 		} while (size <= 2);
 
 		// Constructs a new 2D array
@@ -40,7 +40,7 @@ public class MazeGenerator {
 		String mazeGeneratedStr = convert2D(mazeGenerated);
 		System.out.println();
 		System.out.println(mazeGeneratedStr);
-		System.out.println("String representation of the generated maze");
+		System.out.println("String representation of the generated " + size + "x" + size + " maze");
 		System.out.println();
 
 		// Delete the Hash symbol in the maze
