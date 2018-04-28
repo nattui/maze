@@ -5,6 +5,8 @@ import java.util.Stack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MazeGenerator {
 
@@ -54,8 +56,13 @@ public class MazeGenerator {
 		System.out.println("String representation of DFS");
 		System.out.println();
 		
-		
-		
+		Queue<Cell> q = new LinkedList<Cell>();
+		q.add(new Cell(1, 1));
+		q.add(new Cell(1, 2));
+		q.add(new Cell(2, 1));
+		q.add(new Cell(2, 2));
+		System.out.println("Elements of queue: " + q);
+		System.out.println("Queue removed: " + q.remove());
 	}
 
 	// Prints the 2D array into the console
@@ -472,6 +479,43 @@ public class MazeGenerator {
 
 		return current;
 
+	}
+	
+	public static String[][] BFS(String[][] maze2D) {
+		Stack<Cell> location = new Stack<Cell>();
+		int size = (maze2D.length - 1) / 2;
+		int totalCells = size * size;
+		int visitedCells = 1;
+		Cell current = new Cell(0, 0);
+
+
+		while (visitedCells < totalCells) {
+			// Generates a unique direction
+			ArrayList<String> direction = new ArrayList<>();
+			Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
+			Collections.shuffle(direction);
+
+			// Finds a valid spot on the 2D array
+			String random = DFSValid(maze2D, current, direction);
+
+			System.out.println("The FINAL DIRECTION: " + random);
+			
+			if (random == "BACKTRACK") {
+				// // DEBUGGING: Prints BACKTRACKING
+				// System.out.println("\t PROCESSS: " + random);
+				current = location.pop();
+				continue;
+			}
+
+			current = moveDFS(maze2D, current, random, visitedCells);
+			visitedCells = visitedCells + 1;
+			location.push(current);
+			
+			if (current.getx() == size - 1 && current.gety() == size - 1) {
+				return maze2D;
+			}
+		}
+		return null;
 	}
 
 }

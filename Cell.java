@@ -28,4 +28,7 @@ public class Cell {
 	public void setVisited() {
 		visited = true;
 	}
+	public String toString() {
+		return "[" + x + ":" + y + "]";
+	}
 }
