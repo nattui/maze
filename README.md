@@ -7,7 +7,7 @@ All parts of Maze Generation &amp; Solver are free to use and abuse under the op
 ## Acknowledgement
 Maze Generation &amp; Solver was created by [Nhat Nguyen](https://github.com/nguyen-nhat) and [Jasmine Mai](https://github.com/jasminemai97).
 
-## Example
+## Example ```
 Input the size for the maze: 10
 
 +   +---+---+---+---+---+---+---+---+---+
@@ -55,3 +55,4 @@ String representation of the generated maze
 |               |                     1 |
 +---+---+---+---+---+---+---+---+---+   +
 String representation of DFS
+```
