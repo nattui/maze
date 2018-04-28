@@ -42,8 +42,9 @@ public class MazeGenerator {
 		// Depth First Search
 		String[][] mazeDFS = DFS(mazeGenerated);
 		print2D(mazeDFS);
-		System.out.println("HELLO");
+		System.out.println("DFS Maze");
 		
+		System.out.println();
 		System.out.println(mazeGeneratedStr);
 		System.out.println("String representation of the generated maze");
 		
@@ -52,6 +53,9 @@ public class MazeGenerator {
 		System.out.println(convert2D(mazeDFS));
 		System.out.println("String representation of DFS");
 		System.out.println();
+		
+		
+		
 	}
 
 	// Prints the 2D array into the console
@@ -290,7 +294,9 @@ public class MazeGenerator {
 					maze = maze + "   ";
 				} else if (maze2D[columnIndex][rowIndex] == "S" || maze2D[columnIndex][rowIndex] == "E") {
 					maze = maze + "   ";
-				} else {
+				} else if (maze2D[columnIndex][rowIndex] == " ") {
+					maze = maze + "   ";
+				} else { 
 					maze = maze + " " + maze2D[columnIndex][rowIndex] + " ";
 				}
 
