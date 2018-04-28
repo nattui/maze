@@ -11,12 +11,20 @@ import java.util.Queue;
 public class MazeGenerator {
 
 	public static void main(String[] args) {
+		// User Input for Maze Size
 		@SuppressWarnings("resource")
-
-		// User input a size for the maze
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Input a number: ");
-		int size = scan.nextInt();
+		int size = 0;
+		
+		do {
+			System.out.print("Input the size for the maze: ");
+		    while (!scan.hasNextInt()) {
+		    	System.out.println("Needs a valid integer for maze size (3 or Higher)");
+		    	System.out.print("Input the size for the maze: ");
+		        scan.next();
+		    }
+		    size = scan.nextInt();
+		} while (size <= 2);
 
 		// Constructs a new 2D array
 		String[][] maze2D = maze2D(size);
@@ -45,17 +53,17 @@ public class MazeGenerator {
 		String[][] mazeDFS = DFS(mazeGenerated);
 		print2D(mazeDFS);
 		System.out.println("DFS Maze");
-		
+
 		System.out.println();
 		System.out.println(mazeGeneratedStr);
 		System.out.println("String representation of the generated maze");
-		
+
 		// String representation of DFS
 		System.out.println();
 		System.out.println(convert2D(mazeDFS));
 		System.out.println("String representation of DFS");
 		System.out.println();
-		
+
 		Queue<Cell> q = new LinkedList<Cell>();
 		q.add(new Cell(1, 1));
 		q.add(new Cell(1, 2));
@@ -301,13 +309,13 @@ public class MazeGenerator {
 					maze = maze + "   ";
 				} else if (maze2D[columnIndex][rowIndex] == "S" || maze2D[columnIndex][rowIndex] == "E") {
 					maze = maze + "   ";
-				} else if (maze2D[columnIndex][rowIndex] == " " && columnIndex%2 == 1 && rowIndex%2==0) {
+				} else if (maze2D[columnIndex][rowIndex] == " " && columnIndex % 2 == 1 && rowIndex % 2 == 0) {
 					// Spacing for the wall
 					maze = maze + " ";
 				} else if (maze2D[columnIndex][rowIndex] == " ") {
 					// Spacing for the cell
 					maze = maze + "   ";
-				} else { 
+				} else {
 					maze = maze + " " + maze2D[columnIndex][rowIndex] + " ";
 				}
 
@@ -342,7 +350,6 @@ public class MazeGenerator {
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
 
-
 		while (visitedCells < totalCells) {
 			// Generates a unique direction
 			ArrayList<String> direction = new ArrayList<>();
@@ -353,7 +360,7 @@ public class MazeGenerator {
 			String random = DFSValid(maze2D, current, direction);
 
 			System.out.println("The FINAL DIRECTION: " + random);
-			
+
 			if (random == "BACKTRACK") {
 				// // DEBUGGING: Prints BACKTRACKING
 				// System.out.println("\t PROCESSS: " + random);
@@ -364,7 +371,7 @@ public class MazeGenerator {
 			current = moveDFS(maze2D, current, random, visitedCells);
 			visitedCells = visitedCells + 1;
 			location.push(current);
-			
+
 			if (current.getx() == size - 1 && current.gety() == size - 1) {
 				return maze2D;
 			}
@@ -382,7 +389,7 @@ public class MazeGenerator {
 
 		// When the size of the list is 0, return -1
 		if (direction.size() == 0) {
-			
+
 			return "BACKTRACK";
 		}
 
@@ -411,7 +418,7 @@ public class MazeGenerator {
 				System.out.println("Do not go SOUTH because outside of range of the 2D array");
 				return DFSValid(maze2D, current, direction);
 			}
-			if (maze2D[y+1][x] != " ") {
+			if (maze2D[y + 1][x] != " ") {
 				System.out.println("Do not go SOUTH because there is a wall");
 				return DFSValid(maze2D, current, direction);
 			}
@@ -484,14 +491,13 @@ public class MazeGenerator {
 		return current;
 
 	}
-	
+
 	public static String[][] BFS(String[][] maze2D) {
 		Stack<Cell> location = new Stack<Cell>();
 		int size = (maze2D.length - 1) / 2;
 		int totalCells = size * size;
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
-
 
 		while (visitedCells < totalCells) {
 			// Generates a unique direction
@@ -503,7 +509,7 @@ public class MazeGenerator {
 			String random = DFSValid(maze2D, current, direction);
 
 			System.out.println("The FINAL DIRECTION: " + random);
-			
+
 			if (random == "BACKTRACK") {
 				// // DEBUGGING: Prints BACKTRACKING
 				// System.out.println("\t PROCESSS: " + random);
@@ -514,7 +520,7 @@ public class MazeGenerator {
 			current = moveDFS(maze2D, current, random, visitedCells);
 			visitedCells = visitedCells + 1;
 			location.push(current);
-			
+
 			if (current.getx() == size - 1 && current.gety() == size - 1) {
 				return maze2D;
 			}
