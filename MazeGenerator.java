@@ -362,8 +362,6 @@ public class MazeGenerator {
 			System.out.println("The FINAL DIRECTION: " + random);
 
 			if (random == "BACKTRACK") {
-				// // DEBUGGING: Prints BACKTRACKING
-				// System.out.println("\t PROCESSS: " + random);
 				current = location.pop();
 				continue;
 			}
@@ -383,7 +381,6 @@ public class MazeGenerator {
 	// Checks if DFS is valid
 	public static String DFSValid(String[][] maze2D, Cell current, ArrayList<String> direction) {
 		int size = (maze2D.length - 1) / 2;
-
 		int x = 2 * current.getx() + 1;
 		int y = 2 * current.gety() + 1;
 
@@ -481,12 +478,11 @@ public class MazeGenerator {
 			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
 		}
 
-		// DEBUGGING: Printing maze at each step
-		System.out.println("NEW X-coordinate: " + current.getx() + ", NEW Y-coordinate: " + current.gety());
-		for (String[] row : maze2D) {
-			System.out.println(Arrays.toString(row));
-		}
-		System.out.println();
+		// // DEBUGGING: Printing maze at each step
+		// System.out.println("NEW X-coordinate: " + current.getx() + ", NEW
+		// Y-coordinate: " + current.gety());
+		// print2D(maze2D);
+		// System.out.println();
 
 		return current;
 
