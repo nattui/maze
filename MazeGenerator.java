@@ -301,7 +301,11 @@ public class MazeGenerator {
 					maze = maze + "   ";
 				} else if (maze2D[columnIndex][rowIndex] == "S" || maze2D[columnIndex][rowIndex] == "E") {
 					maze = maze + "   ";
+				} else if (maze2D[columnIndex][rowIndex] == " " && columnIndex%2 == 1 && rowIndex%2==0) {
+					// Spacing for the wall
+					maze = maze + " ";
 				} else if (maze2D[columnIndex][rowIndex] == " ") {
+					// Spacing for the cell
 					maze = maze + "   ";
 				} else { 
 					maze = maze + " " + maze2D[columnIndex][rowIndex] + " ";
