@@ -357,9 +357,8 @@ public class MazeGenerator {
 			System.out.println("The FINAL DIRECTION: " + random);
 
 			if (random == "BACKTRACK") {
-				maze2D[2*current.gety()+1][2*current.getx()+1] = " ";
+				
 				current = location.pop();
-				//maze2D[2*current.gety()+1][2*current.getx()+1] = "?";
 				continue;
 			}
 
@@ -383,7 +382,7 @@ public class MazeGenerator {
 
 		// When the size of the list is 0, return -1
 		if (direction.size() == 0) {
-
+			maze2D[2*current.gety()+1][2*current.getx()+1] = " ";
 			return "BACKTRACK";
 		}
 
