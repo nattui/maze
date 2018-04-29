@@ -26,10 +26,13 @@ public class MazeGenerator {
 			size = scan.nextInt();
 		} while (size <= 2);
 
+		System.out.println("-------------------------------------------------------------------");
+
 		// Constructs a new 2D array
 		String[][] maze2D = maze2D(size);
 		print2D(maze2D);
-		System.out.println("Generated 2D Array with size " + size);
+		System.out.println("Generated 2D Array of Size " + size + "x" + size);
+		System.out.println();
 
 		// Prints out new maze
 		String[][] mazeGenerated = generator(maze2D);
@@ -40,7 +43,7 @@ public class MazeGenerator {
 		String mazeGeneratedStr = convert2D(mazeGenerated);
 		System.out.println();
 		System.out.println(mazeGeneratedStr);
-		System.out.println("String representation of the generated " + size + "x" + size + " maze");
+		System.out.println("String Representation of Generated " + size + "x" + size + " Maze");
 		System.out.println();
 
 		// Delete the Hash symbol in the maze
@@ -56,7 +59,7 @@ public class MazeGenerator {
 
 		System.out.println();
 		System.out.println(mazeGeneratedStr);
-		System.out.println("String representation of the generated maze");
+		System.out.println("String Representation of the Generated maze");
 
 		// String representation of DFS
 		System.out.println();
@@ -118,20 +121,12 @@ public class MazeGenerator {
 	}
 
 	// Generates a maze
-	public static String[][] generator(String[][] maze2D) {
-
-		// Line Separator
-		System.out.println("-------------------------------------------------------------------");
-
+	public static String[][] generator(String[][] maze2D) {	
 		Stack<Cell> location = new Stack<Cell>();
 		int size = (maze2D.length - 1) / 2;
 		int totalCells = size * size;
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
-
-		System.out.println("SIZE: " + size);
-		System.out.println("VISITED CELLS: " + visitedCells);
-		System.out.println();
 
 		while (visitedCells < totalCells) {
 
@@ -362,7 +357,9 @@ public class MazeGenerator {
 			System.out.println("The FINAL DIRECTION: " + random);
 
 			if (random == "BACKTRACK") {
+				maze2D[2*current.gety()+1][2*current.getx()+1] = " ";
 				current = location.pop();
+				//maze2D[2*current.gety()+1][2*current.getx()+1] = "?";
 				continue;
 			}
 
@@ -478,11 +475,10 @@ public class MazeGenerator {
 			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
 		}
 
-		// // DEBUGGING: Printing maze at each step
-		// System.out.println("NEW X-coordinate: " + current.getx() + ", NEW
-		// Y-coordinate: " + current.gety());
-		// print2D(maze2D);
-		// System.out.println();
+		 // DEBUGGING: Printing maze at each step
+		 System.out.println("NEW X-coordinate: " + current.getx() + ", NEW Y-coordinate: " + current.gety());
+		 print2D(maze2D);
+		 System.out.println();
 
 		return current;
 
