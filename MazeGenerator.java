@@ -57,7 +57,7 @@ public class MazeGenerator {
 			String[][] mazeDFS = DFS(mazeGenerated);
 			print2D(mazeDFS);
 			System.out.println("DFS Maze");
-			//System.out.println(path);
+			// System.out.println(path);
 
 			System.out.println();
 			System.out.println(mazeGeneratedStr);
@@ -69,23 +69,32 @@ public class MazeGenerator {
 			System.out.println("String representation of DFS");
 			System.out.println();
 
-			Queue<Cell> q = new LinkedList<Cell>();
-			q.add(new Cell(1, 1));
-			q.add(new Cell(1, 2));
-			q.add(new Cell(2, 1));
-			q.add(new Cell(2, 2));
-			System.out.println("Elements of queue: " + q);
-			System.out.println("Queue removed: " + q.remove());
-
-			ArrayList<String> direction = new ArrayList<>();
-			Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
-			direction.add("FAKE");
-			System.out.println("Stack removed: " + direction.remove(direction.size()-1));
+			print2D(mazeGenerated);
+			System.out.println("Empty Generated Maze");
 			
+			// Breath First Search
+			String[][] mazeBFS = BFS(mazeGenerated);
+			print2D(mazeBFS);
+			System.out.println("BFS Maze");
+			
+			// Queue<Cell> q = new LinkedList<Cell>();
+			// q.add(new Cell(1, 1));
+			// q.add(new Cell(1, 2));
+			// q.add(new Cell(2, 1));
+			// q.add(new Cell(2, 2));
+			// System.out.println("Elements of queue: " + q);
+			// System.out.println("Queue removed: " + q.remove());
+			//
+			// ArrayList<String> direction = new ArrayList<>();
+			// Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
+			// direction.add("FAKE");
+			// System.out.println("Stack removed: " + direction.remove(direction.size() -
+			// 1));
+
 			System.out.println();
-//			System.out.println("Press anything to repeat the program.");
-//			Object repeat = scan.next();
-//			//System.out.println("Press anything to repeat the program.");
+			// System.out.println("Press anything to repeat the program.");
+			// Object repeat = scan.next();
+			// //System.out.println("Press anything to repeat the program.");
 		}
 	}
 
@@ -366,10 +375,10 @@ public class MazeGenerator {
 
 			// Finds a valid spot on the 2D array
 			String random = DFSValid(maze2D, current, direction);
-			System.out.println("The FINAL DIRECTION: " + random);
+			// System.out.println("The FINAL DIRECTION: " + random);
 
 			if (random == "BACKTRACK") {
-				//path.remove(0);
+				// path.remove(0);
 				current = location.pop();
 				continue;
 			}
@@ -394,7 +403,7 @@ public class MazeGenerator {
 
 		// When the size of the list is 0, return "BACKTRACK"
 		if (direction.size() == 0) {
-			//maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = " ";
+			// maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = " ";
 			return "BACKTRACK";
 		}
 
@@ -402,38 +411,38 @@ public class MazeGenerator {
 
 		if (random == "NORTH") {
 			if (current.gety() - 1 < 0) {
-				System.out.println("Do not go NORTH because outside of range of the 2D array");
+				// System.out.println("Do not go NORTH because outside of range of the 2D array");
 				return DFSValid(maze2D, current, direction);
 			}
 			if (maze2D[y - 1][x] != " ") {
-				System.out.println("Do not go NORTH because there is a wall");
+				// System.out.println("Do not go NORTH because there is a wall");
 				return DFSValid(maze2D, current, direction);
 			}
 		} else if (random == "EAST") {
 			if (current.getx() + 1 >= size) {
-				System.out.println("Do not go EAST because outside of range of the 2D array");
+				// System.out.println("Do not go EAST because outside of range of the 2D array");
 				return DFSValid(maze2D, current, direction);
 			}
 			if (maze2D[y][x + 1] != " ") {
-				System.out.println("Do not go EAST because there is a wall");
+				// System.out.println("Do not go EAST because there is a wall");
 				return DFSValid(maze2D, current, direction);
 			}
 		} else if (random == "SOUTH") {
 			if (current.gety() + 1 >= size) {
-				System.out.println("Do not go SOUTH because outside of range of the 2D array");
+				// System.out.println("Do not go SOUTH because outside of range of the 2D array");
 				return DFSValid(maze2D, current, direction);
 			}
 			if (maze2D[y + 1][x] != " ") {
-				System.out.println("Do not go SOUTH because there is a wall");
+				// System.out.println("Do not go SOUTH because there is a wall");
 				return DFSValid(maze2D, current, direction);
 			}
 		} else if (random == "WEST") {
 			if (current.getx() - 1 < 0) {
-				System.out.println("Do not go WEST because outside of range of the 2D array");
+				// System.out.println("Do not go WEST because outside of range of the 2D array");
 				return DFSValid(maze2D, current, direction);
 			}
 			if (maze2D[y][x - 1] != " ") {
-				System.out.println("Do not go WEST because there is a wall");
+				// System.out.println("Do not go WEST because there is a wall");
 				return DFSValid(maze2D, current, direction);
 			}
 		}
@@ -443,7 +452,7 @@ public class MazeGenerator {
 	public static Cell moveDFS(String[][] maze2D, Cell current, String random, int count) {
 
 		// Prints out the coordinates of the current cell object
-		System.out.println(" X-coordinate: " + current.getx() + ", Y-coordinate: " + current.gety());
+		//System.out.println(" X-coordinate: " + current.getx() + ", Y-coordinate: " + current.gety());
 
 		String path = Integer.toString(count % 10);
 		maze2D[1][1] = "0";
@@ -487,48 +496,83 @@ public class MazeGenerator {
 		}
 
 		// DEBUGGING: Printing maze at each step
-		System.out.println("NEW X-coordinate: " + current.getx() + ", NEW Y-coordinate: " + current.gety());
-		print2D(maze2D);
-		System.out.println();
+//		System.out.println("NEW X-coordinate: " + current.getx() + ", NEW Y-coordinate: " + current.gety());
+//		print2D(maze2D);
+//		System.out.println();
 
 		return current;
 
 	}
 
 	public static String[][] BFS(String[][] maze2D) {
-		Stack<Cell> location = new Stack<Cell>();
+		Queue<Cell> neighbors = new LinkedList<Cell>();
+
 		int size = (maze2D.length - 1) / 2;
-		// int totalCells = size * size;
-		// int visitedCells = 1;
-		// Cell current = new Cell(0, 0);
-		//
-		// while (visitedCells < totalCells) {
-		// // Generates a unique direction
-		// ArrayList<String> direction = new ArrayList<>();
-		// Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
-		// Collections.shuffle(direction);
-		//
-		// // Finds a valid spot on the 2D array
-		// //String random = DFSValid(maze2D, current, direction);
-		//
-		// System.out.println("The FINAL DIRECTION: " + random);
-		//
-		// if (random == "BACKTRACK") {
-		// // // DEBUGGING: Prints BACKTRACKING
-		// // System.out.println("\t PROCESSS: " + random);
-		// current = location.pop();
-		// continue;
-		// }
-		//
-		// current = moveDFS(maze2D, current, random, visitedCells);
-		// visitedCells = visitedCells + 1;
-		// location.push(current);
-		//
-		// if (current.getx() == size - 1 && current.gety() == size - 1) {
-		// return maze2D;
-		// }
-		// }
-		return null;
+		int totalCells = size * size;
+		int visitedCells = 1;
+		Cell current = new Cell(0, 0);
+
+		while (visitedCells < totalCells) {
+			
+			
+			BFSValid(maze2D, current);
+			visitedCells = visitedCells + 1;
+		}
+		return maze2D;
+	}
+
+	public static ArrayList<String> BFSValid(String[][] maze2D, Cell current) {
+		int size = (maze2D.length - 1) / 2;
+		int x = 2 * current.getx() + 1;
+		int y = 2 * current.gety() + 1;
+
+		// Generates a unique direction
+		ArrayList<String> direction = new ArrayList<>();
+		Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
+		
+		System.out.println("BEGINING: "+ direction);
+		
+		// Remove NORTH
+		if (current.gety() - 1 < 0) {
+			System.out.println("Do not go NORTH because outside of range of the 2D array");
+			direction.remove("NORTH");
+		}
+		else if (maze2D[y - 1][x] != " ") {
+			System.out.println("Do not go NORTH because there is a wall");
+			direction.remove("NORTH");
+		}
+		// Remove EAST
+		if (current.getx() + 1 >= size) {
+			System.out.println("Do not go EAST because outside of range of the 2D array");
+			direction.remove("EAST");
+		}
+		else if (maze2D[y][x + 1] != " ") {
+			System.out.println("Do not go EAST because there is a wall");
+			direction.remove("EAST");
+		}
+		// Remove SOUTH
+		else if (current.gety() + 1 >= size) {
+			System.out.println("Do not go SOUTH because outside of range of the 2D array");
+			direction.remove("SOUTH");
+		}
+		if (maze2D[y + 1][x] != " ") {
+			System.out.println("Do not go SOUTH because there is a wall");
+			direction.remove("SOUTH");
+		}
+		// Remove WEST
+		else if (current.getx() - 1 < 0) {
+			System.out.println("Do not go WEST because outside of range of the 2D array");
+			direction.remove("WEST");
+		}
+		if (maze2D[y][x - 1] != " ") {
+			System.out.println("Do not go WEST because there is a wall");
+			direction.remove("WEST");
+		}
+		
+		Collections.shuffle(direction);
+		System.out.println(direction);
+
+		return direction;
 	}
 
 }
