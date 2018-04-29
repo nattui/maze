@@ -11,69 +11,82 @@ import java.util.Queue;
 public class MazeGenerator {
 
 	public static void main(String[] args) {
-		// User Input for Maze Size
-		@SuppressWarnings("resource")
-		Scanner scan = new Scanner(System.in);
-		int size = 0;
+		while (true) {
+			// User Input for Maze Size
+			@SuppressWarnings("resource")
+			Scanner scan = new Scanner(System.in);
+			int size = 0;
 
-		do {
-			System.out.print("Input the size for the maze: ");
-			while (!scan.hasNextInt()) {
-				System.out.println("Needs a valid integer for maze size (3 or Higher)");
+			do {
 				System.out.print("Input the size for the maze: ");
-				scan.next();
-			}
-			size = scan.nextInt();
-		} while (size <= 2);
+				while (!scan.hasNextInt()) {
+					System.out.println("Needs a valid integer for maze size (3 or Higher)");
+					System.out.print("Input the size for the maze: ");
+					scan.next();
+				}
+				size = scan.nextInt();
+			} while (size <= 2);
 
-		System.out.println("-------------------------------------------------------------------");
+			System.out.println("-------------------------------------------------------------------");
 
-		// Constructs a new 2D array
-		String[][] maze2D = maze2D(size);
-		print2D(maze2D);
-		System.out.println("Generated 2D Array of Size " + size + "x" + size);
-		System.out.println();
+			// Constructs a new 2D array
+			String[][] maze2D = maze2D(size);
+			print2D(maze2D);
+			System.out.println("Generated 2D Array of Size " + size + "x" + size);
+			System.out.println();
 
-		// Prints out new maze
-		String[][] mazeGenerated = generator(maze2D);
-		print2D(mazeGenerated);
-		System.out.println("Generated Maze");
+			// Prints out new maze
+			String[][] mazeGenerated = generator(maze2D);
+			print2D(mazeGenerated);
+			System.out.println("Generated Maze");
 
-		// Prints the string representation of maze
-		String mazeGeneratedStr = convert2D(mazeGenerated);
-		System.out.println();
-		System.out.println(mazeGeneratedStr);
-		System.out.println("String Representation of Generated " + size + "x" + size + " Maze");
-		System.out.println();
+			// Prints the string representation of maze
+			String mazeGeneratedStr = convert2D(mazeGenerated);
+			System.out.println();
+			System.out.println(mazeGeneratedStr);
+			System.out.println("String Representation of Generated " + size + "x" + size + " Maze");
+			System.out.println();
 
-		// Delete the Hash symbol in the maze
-		mazeGenerated = emptyHash(mazeGenerated);
-		print2D(mazeGenerated);
-		System.out.println("Empty Generated Maze");
-		System.out.println();
+			// Delete the Hash symbol in the maze
+			mazeGenerated = emptyHash(mazeGenerated);
+			print2D(mazeGenerated);
+			System.out.println("Empty Generated Maze");
+			System.out.println();
 
-		// Depth First Search
-		String[][] mazeDFS = DFS(mazeGenerated);
-		print2D(mazeDFS);
-		System.out.println("DFS Maze");
+			// Depth First Search
+			String[][] mazeDFS = DFS(mazeGenerated);
+			print2D(mazeDFS);
+			System.out.println("DFS Maze");
+			//System.out.println(path);
 
-		System.out.println();
-		System.out.println(mazeGeneratedStr);
-		System.out.println("String Representation of the Generated maze");
+			System.out.println();
+			System.out.println(mazeGeneratedStr);
+			System.out.println("String Representation of the Generated maze");
 
-		// String representation of DFS
-		System.out.println();
-		System.out.println(convert2D(mazeDFS));
-		System.out.println("String representation of DFS");
-		System.out.println();
+			// String representation of DFS
+			System.out.println();
+			System.out.println(convert2D(mazeDFS));
+			System.out.println("String representation of DFS");
+			System.out.println();
 
-		Queue<Cell> q = new LinkedList<Cell>();
-		q.add(new Cell(1, 1));
-		q.add(new Cell(1, 2));
-		q.add(new Cell(2, 1));
-		q.add(new Cell(2, 2));
-		System.out.println("Elements of queue: " + q);
-		System.out.println("Queue removed: " + q.remove());
+			Queue<Cell> q = new LinkedList<Cell>();
+			q.add(new Cell(1, 1));
+			q.add(new Cell(1, 2));
+			q.add(new Cell(2, 1));
+			q.add(new Cell(2, 2));
+			System.out.println("Elements of queue: " + q);
+			System.out.println("Queue removed: " + q.remove());
+
+			ArrayList<String> direction = new ArrayList<>();
+			Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
+			direction.add("FAKE");
+			System.out.println("Stack removed: " + direction.remove(direction.size()-1));
+			
+			System.out.println();
+//			System.out.println("Press anything to repeat the program.");
+//			Object repeat = scan.next();
+//			//System.out.println("Press anything to repeat the program.");
+		}
 	}
 
 	// Prints the 2D array into the console
@@ -121,7 +134,7 @@ public class MazeGenerator {
 	}
 
 	// Generates a maze
-	public static String[][] generator(String[][] maze2D) {	
+	public static String[][] generator(String[][] maze2D) {
 		Stack<Cell> location = new Stack<Cell>();
 		int size = (maze2D.length - 1) / 2;
 		int totalCells = size * size;
@@ -353,11 +366,10 @@ public class MazeGenerator {
 
 			// Finds a valid spot on the 2D array
 			String random = DFSValid(maze2D, current, direction);
-
 			System.out.println("The FINAL DIRECTION: " + random);
 
 			if (random == "BACKTRACK") {
-				
+				//path.remove(0);
 				current = location.pop();
 				continue;
 			}
@@ -380,9 +392,9 @@ public class MazeGenerator {
 		int x = 2 * current.getx() + 1;
 		int y = 2 * current.gety() + 1;
 
-		// When the size of the list is 0, return -1
+		// When the size of the list is 0, return "BACKTRACK"
 		if (direction.size() == 0) {
-			maze2D[2*current.gety()+1][2*current.getx()+1] = " ";
+			//maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = " ";
 			return "BACKTRACK";
 		}
 
@@ -474,10 +486,10 @@ public class MazeGenerator {
 			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
 		}
 
-		 // DEBUGGING: Printing maze at each step
-		 System.out.println("NEW X-coordinate: " + current.getx() + ", NEW Y-coordinate: " + current.gety());
-		 print2D(maze2D);
-		 System.out.println();
+		// DEBUGGING: Printing maze at each step
+		System.out.println("NEW X-coordinate: " + current.getx() + ", NEW Y-coordinate: " + current.gety());
+		print2D(maze2D);
+		System.out.println();
 
 		return current;
 
@@ -486,36 +498,36 @@ public class MazeGenerator {
 	public static String[][] BFS(String[][] maze2D) {
 		Stack<Cell> location = new Stack<Cell>();
 		int size = (maze2D.length - 1) / 2;
-		int totalCells = size * size;
-		int visitedCells = 1;
-		Cell current = new Cell(0, 0);
-
-		while (visitedCells < totalCells) {
-			// Generates a unique direction
-			ArrayList<String> direction = new ArrayList<>();
-			Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
-			Collections.shuffle(direction);
-
-			// Finds a valid spot on the 2D array
-			String random = DFSValid(maze2D, current, direction);
-
-			System.out.println("The FINAL DIRECTION: " + random);
-
-			if (random == "BACKTRACK") {
-				// // DEBUGGING: Prints BACKTRACKING
-				// System.out.println("\t PROCESSS: " + random);
-				current = location.pop();
-				continue;
-			}
-
-			current = moveDFS(maze2D, current, random, visitedCells);
-			visitedCells = visitedCells + 1;
-			location.push(current);
-
-			if (current.getx() == size - 1 && current.gety() == size - 1) {
-				return maze2D;
-			}
-		}
+		// int totalCells = size * size;
+		// int visitedCells = 1;
+		// Cell current = new Cell(0, 0);
+		//
+		// while (visitedCells < totalCells) {
+		// // Generates a unique direction
+		// ArrayList<String> direction = new ArrayList<>();
+		// Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
+		// Collections.shuffle(direction);
+		//
+		// // Finds a valid spot on the 2D array
+		// //String random = DFSValid(maze2D, current, direction);
+		//
+		// System.out.println("The FINAL DIRECTION: " + random);
+		//
+		// if (random == "BACKTRACK") {
+		// // // DEBUGGING: Prints BACKTRACKING
+		// // System.out.println("\t PROCESSS: " + random);
+		// current = location.pop();
+		// continue;
+		// }
+		//
+		// current = moveDFS(maze2D, current, random, visitedCells);
+		// visitedCells = visitedCells + 1;
+		// location.push(current);
+		//
+		// if (current.getx() == size - 1 && current.gety() == size - 1) {
+		// return maze2D;
+		// }
+		// }
 		return null;
 	}
 
