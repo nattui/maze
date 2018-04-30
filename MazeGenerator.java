@@ -35,33 +35,29 @@ public class MazeGenerator {
 			System.out.println("Generated 2D Array of Size " + size + "x" + size);
 			System.out.println();
 
-			// Prints out new maze
+			// Prints out new maze as 2D array
 			String[][] mazeGenerated = generator(maze2D);
 			print2D(mazeGenerated);
-			System.out.println("Generated Maze");
+			System.out.println("Generated Maze as 2D array");
 
 			// Prints the string representation of maze
-			String mazeGeneratedStr = convert2D(mazeGenerated);
 			System.out.println();
-			System.out.println(mazeGeneratedStr);
+			System.out.println(convert2D(mazeGenerated));
 			System.out.println("String Representation of Generated " + size + "x" + size + " Maze");
 			System.out.println();
 
 			// Delete the Hash symbol in the maze
 			mazeGenerated = emptyHash(mazeGenerated);
 			print2D(mazeGenerated);
+			// print2D(mazeGeneratedCopy1);
 			System.out.println("Empty Generated Maze");
 			System.out.println();
 
 			// Depth First Search
-			String[][] mazeDFS = DFS(mazeGenerated);
+			String[][] mazeDFS = DFS(clone(mazeGenerated));
 			print2D(mazeDFS);
 			System.out.println("DFS Maze");
 			// System.out.println(path);
-
-			System.out.println();
-			System.out.println(mazeGeneratedStr);
-			System.out.println("String Representation of the Generated maze");
 
 			// String representation of DFS
 			System.out.println();
@@ -69,13 +65,16 @@ public class MazeGenerator {
 			System.out.println("String representation of DFS");
 			System.out.println();
 
-			print2D(mazeGenerated);
-			System.out.println("Empty Generated Maze");
+			// Prints the string representation of maze
+			print2D(clone(mazeGenerated));
+			System.out.println("String Representation of Generated " + size + "x" + size + " Maze");
+			System.out.println();
 			
 			// Breath First Search
-			String[][] mazeBFS = BFS(mazeGenerated);
+			String[][] mazeBFS = BFS(clone(mazeGenerated));
 			print2D(mazeBFS);
 			System.out.println("BFS Maze");
+			System.out.println("Maze Length " + mazeBFS.length);
 			
 			// Queue<Cell> q = new LinkedList<Cell>();
 			// q.add(new Cell(1, 1));
@@ -105,6 +104,17 @@ public class MazeGenerator {
 		}
 	}
 
+	// Clones 2D array to new 2D array
+	public static String[][] clone(String[][] maze2D) {
+		String[][] clone2D = new String[maze2D.length][maze2D.length];
+		for (int columnIndex = 0; columnIndex < maze2D.length; columnIndex++) {
+			for (int rowIndex = 0; rowIndex < maze2D.length; rowIndex++) {
+				clone2D[columnIndex][rowIndex] = maze2D[columnIndex][rowIndex];
+			}
+		}	
+		return clone2D;
+	}
+	
 	// Creates a 2D array with walls
 	public static String[][] maze2D(int size) {
 		String[][] maze2D = new String[2 * size + 1][2 * size + 1];
@@ -449,6 +459,7 @@ public class MazeGenerator {
 		return random;
 	}
 
+	// Move DFS location
 	public static Cell moveDFS(String[][] maze2D, Cell current, String random, int count) {
 
 		// Prints out the coordinates of the current cell object
@@ -504,6 +515,7 @@ public class MazeGenerator {
 
 	}
 
+	// Breath first Search
 	public static String[][] BFS(String[][] maze2D) {
 		Queue<Cell> neighbors = new LinkedList<Cell>();
 
@@ -515,12 +527,13 @@ public class MazeGenerator {
 		while (visitedCells < totalCells) {
 			
 			
-			BFSValid(maze2D, current);
+			// BFSValid(maze2D, current);
 			visitedCells = visitedCells + 1;
 		}
 		return maze2D;
 	}
 
+	// Checks if BFS is valid
 	public static ArrayList<String> BFSValid(String[][] maze2D, Cell current) {
 		int size = (maze2D.length - 1) / 2;
 		int x = 2 * current.getx() + 1;
