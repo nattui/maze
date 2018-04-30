@@ -605,17 +605,22 @@ public class MazeGenerator {
 		Cell temp = current;
 		current = neighborQueue.remove();
 		
-		int x = Math.abs(temp.getx() - current.getx());
-		int y = Math.abs(temp.gety() - current.gety());
+		int x = temp.getx() - current.getx();
+		int y = temp.gety() - current.gety();
+		
 		
 		if (x==0 && y==1) {
+			// NORTH
 			
 		} else if (x==0 && y==1) {
+			// EAST
 			
 		} else if (x==0 && y==1) {
+			// SOUTH
 			
 		} else if (x==0 && y==1) {
-			
+			// WEST
+		
 		}
 		
 		return null;
