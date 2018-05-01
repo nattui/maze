@@ -8,6 +8,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * This program generates mazes and solves them using Breadth-first Search
+ * and Depth-first Search algorithms
+ * 
+ * @author Nhat Nguyen
+ * @author Jasmine Mai
+ */
+
 public class MazeGenerator {
 
 	public static void main(String[] args) {
