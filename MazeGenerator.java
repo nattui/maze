@@ -62,19 +62,19 @@ public class MazeGenerator {
 
 			// Depth First Search
 			String[][] mazeDFS = DFS(clone(mazeGenerated));
-			print2D(mazeDFS);
-			System.out.println("DFS Maze as 2D Array");
-
-			// String representation of DFS
+			// print2D(mazeDFS);
+			// System.out.println("DFS Maze as 2D Array");
 			System.out.println();
+			
+			// String representation of DFS
 			System.out.println(convert2D(mazeDFS));
 			System.out.println("String representation of DFS Maze");
 			System.out.println();
 
 			// Breasth First Search
 			String[][] mazeBFS = BFS(clone(mazeGenerated));
-			print2D(mazeBFS);
-			System.out.println("BFS Maze as 2D Array");
+			// print2D(mazeBFS);
+			// System.out.println("BFS Maze as 2D Array");
 			System.out.println();
 
 			// String representation of DFS
