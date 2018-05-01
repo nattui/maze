@@ -628,7 +628,7 @@ public class MazeGenerator {
 			}
 		}
 		
-		System.out.println("Elements: "+ neighborQueue);
+		System.out.println("Elements: " + neighborQueue);
 
 		neighborQueue.remove();
 		current = neighborQueue.peek();
