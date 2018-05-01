@@ -579,20 +579,20 @@ public class MazeGenerator {
 			direction.remove("EAST");
 		}
 		// Remove SOUTH
-		else if (current.gety() + 1 >= size) {
+		if (current.gety() + 1 >= size) {
 			System.out.println("Do not go SOUTH because outside of range of the 2D array");
 			direction.remove("SOUTH");
 		}
-		if (maze2D[y + 1][x] != " ") {
+		else if (maze2D[y + 1][x] != " ") {
 			System.out.println("Do not go SOUTH because there is a wall");
 			direction.remove("SOUTH");
 		}
 		// Remove WEST
-		else if (current.getx() - 1 < 0) {
+		if (current.getx() - 1 < 0) {
 			System.out.println("Do not go WEST because outside of range of the 2D array");
 			direction.remove("WEST");
 		}
-		if (maze2D[y][x - 1] != " ") {
+		else if (maze2D[y][x - 1] != " ") {
 			System.out.println("Do not go WEST because there is a wall");
 			direction.remove("WEST");
 		}
