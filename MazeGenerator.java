@@ -9,8 +9,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * This program generates mazes and solves them using Breadth-first Search
- * and Depth-first Search algorithms
+ * This program generates mazes and solves them using Breadth-first Search and
+ * Depth-first Search algorithms
  * 
  * @author Nhat Nguyen
  * @author Jasmine Mai
@@ -75,6 +75,12 @@ public class MazeGenerator {
 			String[][] mazeBFS = BFS(clone(mazeGenerated));
 			print2D(mazeBFS);
 			System.out.println("BFS Maze as 2D Array");
+			System.out.println();
+			
+			// String representation of DFS
+			System.out.println(convert2D(mazeBFS));
+			System.out.println("String representation of BFS Maze");
+			System.out.println();
 
 			// Queue<Cell> q = new LinkedList<Cell>();
 			// q.add(new Cell(1, 1));
@@ -546,6 +552,10 @@ public class MazeGenerator {
 			direction = BFSValid(maze2D, current);
 			current = BFSMove(maze2D, current, neighborQueue, direction, visitedCells);
 			visitedCells = visitedCells + 1;
+			
+			if (current.getx() == size - 1 && current.gety() == size - 1) {
+				return maze2D;
+			}
 		}
 		return maze2D;
 	}
@@ -560,13 +570,13 @@ public class MazeGenerator {
 		ArrayList<String> direction = new ArrayList<>();
 		Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
 
-		System.out.println("BEGINNING: " + direction);
+		// System.out.println("BEGINNING: " + direction);
 
 		// Remove NORTH
 		if (current.gety() - 1 < 0) {
 			System.out.println("Do not go NORTH because outside of range of the 2D array");
 			direction.remove("NORTH");
-		} else if (maze2D[y - 1][x] != " ") {
+		} else if (maze2D[y - 1][x] != " " || maze2D[y - 2][x] != " ") {
 			System.out.println("Do not go NORTH because there is a wall");
 			direction.remove("NORTH");
 		}
@@ -574,7 +584,7 @@ public class MazeGenerator {
 		if (current.getx() + 1 >= size) {
 			System.out.println("Do not go EAST because outside of range of the 2D array");
 			direction.remove("EAST");
-		} else if (maze2D[y][x + 1] != " ") {
+		} else if (maze2D[y][x + 1] != " " || maze2D[y][x + 2] != " ") {
 			System.out.println("Do not go EAST because there is a wall");
 			direction.remove("EAST");
 		}
@@ -582,8 +592,7 @@ public class MazeGenerator {
 		if (current.gety() + 1 >= size) {
 			System.out.println("Do not go SOUTH because outside of range of the 2D array");
 			direction.remove("SOUTH");
-		}
-		else if (maze2D[y + 1][x] != " ") {
+		} else if (maze2D[y + 1][x] != " " || maze2D[y + 2][x] != " ") {
 			System.out.println("Do not go SOUTH because there is a wall");
 			direction.remove("SOUTH");
 		}
@@ -591,8 +600,7 @@ public class MazeGenerator {
 		if (current.getx() - 1 < 0) {
 			System.out.println("Do not go WEST because outside of range of the 2D array");
 			direction.remove("WEST");
-		}
-		else if (maze2D[y][x - 1] != " ") {
+		} else if (maze2D[y][x - 1] != " " || maze2D[y][x - 2] != " ") {
 			System.out.println("Do not go WEST because there is a wall");
 			direction.remove("WEST");
 		}
@@ -602,7 +610,7 @@ public class MazeGenerator {
 
 		return direction;
 	}
-	
+
 	// Move BFS location
 	public static Cell BFSMove(String[][] maze2D, Cell current, Queue<Cell> neighborQueue, ArrayList<String> direction,
 			int count) {
@@ -611,7 +619,7 @@ public class MazeGenerator {
 
 		while (direction.size() > 0) {
 			System.out.println("Enters while loop");
-			
+
 			String random = direction.remove(0);
 			if (random == "NORTH") {
 				System.out.println("Removes NORTH");
@@ -627,8 +635,9 @@ public class MazeGenerator {
 				neighborQueue.add(new Cell(current.getx() - 1, current.gety()));
 			}
 		}
-		
+
 		System.out.println("Elements: " + neighborQueue);
+		System.out.println();
 
 		neighborQueue.remove();
 		current = neighborQueue.peek();
