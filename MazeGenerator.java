@@ -76,7 +76,7 @@ public class MazeGenerator {
 			print2D(mazeBFS);
 			System.out.println("BFS Maze as 2D Array");
 			System.out.println();
-			
+
 			// String representation of DFS
 			System.out.println(convert2D(mazeBFS));
 			System.out.println("String representation of BFS Maze");
@@ -552,7 +552,7 @@ public class MazeGenerator {
 			direction = BFSValid(maze2D, current);
 			current = BFSMove(maze2D, current, neighborQueue, direction, visitedCells);
 			visitedCells = visitedCells + 1;
-			
+
 			if (current.getx() == size - 1 && current.gety() == size - 1) {
 				return maze2D;
 			}
@@ -574,7 +574,8 @@ public class MazeGenerator {
 
 		// Remove NORTH
 		if (current.gety() - 1 < 0) {
-			// System.out.println("Do not go NORTH because outside of range of the 2D array");
+			// System.out.println("Do not go NORTH because outside of range of the 2D
+			// array");
 			direction.remove("NORTH");
 		} else if (maze2D[y - 1][x] != " " || maze2D[y - 2][x] != " ") {
 			// System.out.println("Do not go NORTH because there is a wall");
@@ -582,7 +583,8 @@ public class MazeGenerator {
 		}
 		// Remove EAST
 		if (current.getx() + 1 >= size) {
-			// System.out.println("Do not go EAST because outside of range of the 2D array");
+			// System.out.println("Do not go EAST because outside of range of the 2D
+			// array");
 			direction.remove("EAST");
 		} else if (maze2D[y][x + 1] != " " || maze2D[y][x + 2] != " ") {
 			// System.out.println("Do not go EAST because there is a wall");
@@ -590,7 +592,8 @@ public class MazeGenerator {
 		}
 		// Remove SOUTH
 		if (current.gety() + 1 >= size) {
-			// System.out.println("Do not go SOUTH because outside of range of the 2D array");
+			// System.out.println("Do not go SOUTH because outside of range of the 2D
+			// array");
 			direction.remove("SOUTH");
 		} else if (maze2D[y + 1][x] != " " || maze2D[y + 2][x] != " ") {
 			// System.out.println("Do not go SOUTH because there is a wall");
@@ -598,7 +601,8 @@ public class MazeGenerator {
 		}
 		// Remove WEST
 		if (current.getx() - 1 < 0) {
-			// System.out.println("Do not go WEST because outside of range of the 2D array");
+			// System.out.println("Do not go WEST because outside of range of the 2D
+			// array");
 			direction.remove("WEST");
 		} else if (maze2D[y][x - 1] != " " || maze2D[y][x - 2] != " ") {
 			// System.out.println("Do not go WEST because there is a wall");
