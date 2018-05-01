@@ -574,39 +574,39 @@ public class MazeGenerator {
 
 		// Remove NORTH
 		if (current.gety() - 1 < 0) {
-			System.out.println("Do not go NORTH because outside of range of the 2D array");
+			// System.out.println("Do not go NORTH because outside of range of the 2D array");
 			direction.remove("NORTH");
 		} else if (maze2D[y - 1][x] != " " || maze2D[y - 2][x] != " ") {
-			System.out.println("Do not go NORTH because there is a wall");
+			// System.out.println("Do not go NORTH because there is a wall");
 			direction.remove("NORTH");
 		}
 		// Remove EAST
 		if (current.getx() + 1 >= size) {
-			System.out.println("Do not go EAST because outside of range of the 2D array");
+			// System.out.println("Do not go EAST because outside of range of the 2D array");
 			direction.remove("EAST");
 		} else if (maze2D[y][x + 1] != " " || maze2D[y][x + 2] != " ") {
-			System.out.println("Do not go EAST because there is a wall");
+			// System.out.println("Do not go EAST because there is a wall");
 			direction.remove("EAST");
 		}
 		// Remove SOUTH
 		if (current.gety() + 1 >= size) {
-			System.out.println("Do not go SOUTH because outside of range of the 2D array");
+			// System.out.println("Do not go SOUTH because outside of range of the 2D array");
 			direction.remove("SOUTH");
 		} else if (maze2D[y + 1][x] != " " || maze2D[y + 2][x] != " ") {
-			System.out.println("Do not go SOUTH because there is a wall");
+			// System.out.println("Do not go SOUTH because there is a wall");
 			direction.remove("SOUTH");
 		}
 		// Remove WEST
 		if (current.getx() - 1 < 0) {
-			System.out.println("Do not go WEST because outside of range of the 2D array");
+			// System.out.println("Do not go WEST because outside of range of the 2D array");
 			direction.remove("WEST");
 		} else if (maze2D[y][x - 1] != " " || maze2D[y][x - 2] != " ") {
-			System.out.println("Do not go WEST because there is a wall");
+			// System.out.println("Do not go WEST because there is a wall");
 			direction.remove("WEST");
 		}
 
 		Collections.shuffle(direction);
-		System.out.println(direction);
+		// System.out.println(direction);
 
 		return direction;
 	}
@@ -618,26 +618,26 @@ public class MazeGenerator {
 		String path = Integer.toString(count % 10);
 
 		while (direction.size() > 0) {
-			System.out.println("Enters while loop");
+			// System.out.println("Enters while loop");
 
 			String random = direction.remove(0);
 			if (random == "NORTH") {
-				System.out.println("Removes NORTH");
+				// System.out.println("Removes NORTH");
 				neighborQueue.add(new Cell(current.getx(), current.gety() - 1));
 			} else if (random == "EAST") {
-				System.out.println("Removes EAST");
+				// System.out.println("Removes EAST");
 				neighborQueue.add(new Cell(current.getx() + 1, current.gety()));
 			} else if (random == "SOUTH") {
-				System.out.println("Removes SOUTH");
+				// System.out.println("Removes SOUTH");
 				neighborQueue.add(new Cell(current.getx(), current.gety() + 1));
 			} else if (random == "WEST") {
-				System.out.println("Removes WEST");
+				// System.out.println("Removes WEST");
 				neighborQueue.add(new Cell(current.getx() - 1, current.gety()));
 			}
 		}
 
-		System.out.println("Elements: " + neighborQueue);
-		System.out.println();
+		// System.out.println("Elements: " + neighborQueue);
+		// System.out.println();
 
 		neighborQueue.remove();
 		current = neighborQueue.peek();
