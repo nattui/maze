@@ -560,7 +560,7 @@ public class MazeGenerator {
 		ArrayList<String> direction = new ArrayList<>();
 		Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
 
-		System.out.println("BEGINING: " + direction);
+		System.out.println("BEGINNING: " + direction);
 
 		// Remove NORTH
 		if (current.gety() - 1 < 0) {
