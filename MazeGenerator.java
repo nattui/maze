@@ -71,7 +71,7 @@ public class MazeGenerator {
 			System.out.println("String representation of DFS Maze");
 			System.out.println();
 
-			// Breath First Search
+			// Breasth First Search
 			String[][] mazeBFS = BFS(clone(mazeGenerated));
 			print2D(mazeBFS);
 			System.out.println("BFS Maze as 2D Array");
@@ -83,7 +83,9 @@ public class MazeGenerator {
 			// q.add(new Cell(2, 2));
 			// System.out.println("Elements of queue: " + q);
 			// System.out.println("Queue removed: " + q.remove());
-			//
+			// System.out.println("Head of the queue: " + q.peek());
+			// System.out.println("Elements of queue: " + q);
+
 			// ArrayList<String> direction = new ArrayList<>();
 			// Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
 			// direction.add("FAKE");
@@ -104,7 +106,13 @@ public class MazeGenerator {
 		}
 	}
 
-	// Clones 2D array to new 2D array
+	/**
+	 * Clones 2D array to new 2D array
+	 * 
+	 * @param maze2D
+	 *            is the matrix that represents the maze in 2D array
+	 * @return clone2D The copy of the matrix that represents the maze in 2D array
+	 */
 	public static String[][] clone(String[][] maze2D) {
 		String[][] clone2D = new String[maze2D.length][maze2D.length];
 		for (int columnIndex = 0; columnIndex < maze2D.length; columnIndex++) {
@@ -185,7 +193,7 @@ public class MazeGenerator {
 		return maze2D;
 	}
 
-	// Finds valid spot to move
+	// Finds valid spot to move for maze generation
 	public static String validSpot(String[][] maze2D, Cell current, ArrayList<String> direction) {
 		int size = (maze2D.length - 1) / 2;
 
@@ -376,6 +384,7 @@ public class MazeGenerator {
 		int totalCells = size * size;
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
+		maze2D[1][1] = "0";
 
 		while (visitedCells < totalCells) {
 			// Generates a unique direction
@@ -413,7 +422,7 @@ public class MazeGenerator {
 
 		// When the size of the list is 0, return "BACKTRACK"
 		if (direction.size() == 0) {
-			// maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = " ";
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = " ";
 			return "BACKTRACK";
 		}
 
@@ -471,7 +480,6 @@ public class MazeGenerator {
 		// current.gety());
 
 		String path = Integer.toString(count % 10);
-		maze2D[1][1] = "0";
 
 		if (random == "NORTH") {
 			// NORTH and delete wall from bottom from next cell
@@ -521,7 +529,7 @@ public class MazeGenerator {
 
 	}
 
-	// Breath first Search
+	// Breadth first Search
 	public static String[][] BFS(String[][] maze2D) {
 		Queue<Cell> neighborQueue = new LinkedList<Cell>();
 
@@ -530,12 +538,13 @@ public class MazeGenerator {
 		int visitedCells = 1;
 		Cell current = new Cell(0, 0);
 		neighborQueue.add(current);
+		maze2D[1][1] = "0";
 
 		while (visitedCells < totalCells) {
 			ArrayList<String> direction = new ArrayList<>();
 
 			direction = BFSValid(maze2D, current);
-			current = BFSMove(maze2D, current, neighborQueue, direction);
+			current = BFSMove(maze2D, current, neighborQueue, direction, visitedCells);
 			visitedCells = visitedCells + 1;
 		}
 		return maze2D;
@@ -593,45 +602,37 @@ public class MazeGenerator {
 
 		return direction;
 	}
+	
+	// Move BFS location
+	public static Cell BFSMove(String[][] maze2D, Cell current, Queue<Cell> neighborQueue, ArrayList<String> direction,
+			int count) {
 
-	public static Cell BFSMove(String[][] maze2D, Cell current, Queue<Cell> neighborQueue,
-			ArrayList<String> direction) {
+		String path = Integer.toString(count % 10);
 
 		while (direction.size() < 0) {
 			String random = direction.remove(0);
 			if (random == "NORTH") {
-				neighborQueue.add(new Cell(current.getx(), current.gety()-1));
+				System.out.println("Removes NORTH");
+				neighborQueue.add(new Cell(current.getx(), current.gety() - 1));
 			} else if (random == "EAST") {
-				neighborQueue.add(new Cell(current.getx()+1, current.gety()));
+				System.out.println("Removes EAST");
+				neighborQueue.add(new Cell(current.getx() + 1, current.gety()));
 			} else if (random == "SOUTH") {
-				neighborQueue.add(new Cell(current.getx(), current.gety()+1));
+				System.out.println("Removes SOUTH");
+				neighborQueue.add(new Cell(current.getx(), current.gety() + 1));
 			} else if (random == "WEST") {
-				neighborQueue.add(new Cell(current.getx()-1, current.gety()));
+				System.out.println("Removes WEST");
+				neighborQueue.add(new Cell(current.getx() - 1, current.gety()));
 			}
 		}
 		
-		Cell temp = current;
-		current = neighborQueue.remove();
-		
-		int x = temp.getx() - current.getx();
-		int y = temp.gety() - current.gety();
-		
-		
-		if (x==0 && y==1) {
-			// NORTH
-			
-		} else if (x==0 && y==1) {
-			// EAST
-			
-		} else if (x==0 && y==1) {
-			// SOUTH
-			
-		} else if (x==0 && y==1) {
-			// WEST
-		
-		}
-		
-		return null;
+		System.out.println("Elements: "+ neighborQueue);
+
+		neighborQueue.remove();
+		current = neighborQueue.peek();
+		maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = path;
+
+		return current;
 	}
 
 }
