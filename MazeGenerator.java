@@ -601,7 +601,9 @@ public class MazeGenerator {
 
 		String path = Integer.toString(count % 10);
 
-		while (direction.size() < 0) {
+		while (direction.size() > 0) {
+			System.out.println("Enters while loop");
+			
 			String random = direction.remove(0);
 			if (random == "NORTH") {
 				System.out.println("Removes NORTH");
