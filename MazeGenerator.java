@@ -594,7 +594,8 @@ public class MazeGenerator {
 
 		return direction;
 	}
-
+	
+	// Move BFS location
 	public static Cell BFSMove(String[][] maze2D, Cell current, Queue<Cell> neighborQueue, ArrayList<String> direction,
 			int count) {
 
@@ -603,12 +604,16 @@ public class MazeGenerator {
 		while (direction.size() < 0) {
 			String random = direction.remove(0);
 			if (random == "NORTH") {
+				System.out.println("Removes NORTH");
 				neighborQueue.add(new Cell(current.getx(), current.gety() - 1));
 			} else if (random == "EAST") {
+				System.out.println("Removes EAST");
 				neighborQueue.add(new Cell(current.getx() + 1, current.gety()));
 			} else if (random == "SOUTH") {
+				System.out.println("Removes SOUTH");
 				neighborQueue.add(new Cell(current.getx(), current.gety() + 1));
 			} else if (random == "WEST") {
+				System.out.println("Removes WEST");
 				neighborQueue.add(new Cell(current.getx() - 1, current.gety()));
 			}
 		}
