@@ -1,7 +1,6 @@
 package maze;
 
 /**
- * 
  * @author Nhat Nguyen
  * @author Jasmine Mai
  */
