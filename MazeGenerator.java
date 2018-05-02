@@ -654,7 +654,8 @@ public class MazeGenerator {
 
 		return current;
 	}
-
+	
+	// Creating the path
 	public static String[][] path(String[][] maze2D) {
 		int size = (maze2D.length - 1) / 2;
 		Cell current = new Cell(size, size);
