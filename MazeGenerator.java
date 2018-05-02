@@ -706,7 +706,27 @@ public class MazeGenerator {
 			direction.remove("WEST");
 		}
 
-		
+		if (direction.size() == 2) {
+			if (direction.contains("NORTH")) {
+				int northNumber = Integer.parseInt(maze2D[y-2][x]);
+				Path north = new Path(northNumber, "NORTH");
+			}
+			if (direction.contains("EAST")) {
+				int eastNumber = Integer.parseInt(maze2D[y][x+2]);
+				Path east = new Path(eastNumber, "EAST");
+			}
+			if (direction.contains("SOUTH")) {
+				int southNumber = Integer.parseInt(maze2D[y+2][x]);
+				Path south = new Path(southNumber, "SOUTH");
+			}
+			if (direction.contains("WEST")) {
+				int westNumber = Integer.parseInt(maze2D[y][x-2]);
+				Path west = new Path(westNumber, "WEST");
+			}
+			
+			
+			
+		}
 		
 		return null;
 	}
