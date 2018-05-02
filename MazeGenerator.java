@@ -738,16 +738,33 @@ public class MazeGenerator {
 				
 				if (finalDirection == "NORTH") {
 					current = new Cell(current.getx(), current.gety()-1);
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
 				} else if (finalDirection == "EAST") {
 					current = new Cell(current.getx()+1, current.gety());
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
 				} else if (finalDirection == "SOUTH") {
 					current = new Cell(current.getx(), current.gety()+1);
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
 				} else if (finalDirection == "WEST") {
 					current = new Cell(current.getx()-1, current.gety());
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
 				}
-				current = new Cell(current.getx(), current.getx());
 			} else {
+				String finalDirection = path2.getDirection();
 				
+				if (finalDirection == "NORTH") {
+					current = new Cell(current.getx(), current.gety()-1);
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+				} else if (finalDirection == "EAST") {
+					current = new Cell(current.getx()+1, current.gety());
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+				} else if (finalDirection == "SOUTH") {
+					current = new Cell(current.getx(), current.gety()+1);
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+				} else if (finalDirection == "WEST") {
+					current = new Cell(current.getx()-1, current.gety());
+					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+				}
 			}
 			
 			
