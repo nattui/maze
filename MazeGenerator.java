@@ -99,7 +99,11 @@ public class MazeGenerator {
 			// System.out.println("Stack removed: " + direction.remove(direction.size() -
 			// 1));
 
+			String[][] path = path(mazeBFS);
+			print2D(path);
 			System.out.println();
+			System.out.println(convert2D(path));
+			System.out.println("Hash Single Path");
 			// System.out.println("Press anything to repeat the program.");
 			// Object repeat = scan.next();
 			// //System.out.println("Press anything to repeat the program.");
@@ -661,13 +665,18 @@ public class MazeGenerator {
 	// Creating the path
 	public static String[][] path(String[][] maze2D) {
 		int size = (maze2D.length - 1) / 2;
-		
-		Cell current = new Cell(size, size);
+
+		// DEBUGG
+		System.out.println(size);
+
+		Cell current = new Cell(size - 1, size - 1);
 		int x = 2 * current.getx() + 1;
 		int y = 2 * current.gety() + 1;
-		
-		int currentNumber = Integer.parseInt(maze2D[2 * size][2 * size]);
-		maze2D[2 * size][2 * size] = "#";
+
+		// DEBUGG
+		System.out.println(size + " " + x + " " + y);
+
+		maze2D[2 * size - 1][2 * size - 1] = "#";
 
 		// Generates a unique direction
 		ArrayList<String> direction = new ArrayList<>();
@@ -706,70 +715,90 @@ public class MazeGenerator {
 			direction.remove("WEST");
 		}
 
+		// DEBUGG
+		System.out.println("DIRECTION: " + direction);
+		System.out.println("SIZE: " + direction.size());
+
 		if (direction.size() == 2) {
 			ArrayList<Path> paths = new ArrayList<>();
-			
+
 			if (direction.contains("NORTH")) {
-				int northNumber = Integer.parseInt(maze2D[y-2][x]);
+				int northNumber = Integer.parseInt(maze2D[y - 2][x]);
 				Path north = new Path(northNumber, "NORTH");
 				paths.add(north);
 			}
 			if (direction.contains("EAST")) {
-				int eastNumber = Integer.parseInt(maze2D[y][x+2]);
+				int eastNumber = Integer.parseInt(maze2D[y][x + 2]);
 				Path east = new Path(eastNumber, "EAST");
 				paths.add(east);
 			}
 			if (direction.contains("SOUTH")) {
-				int southNumber = Integer.parseInt(maze2D[y+2][x]);
+				int southNumber = Integer.parseInt(maze2D[y + 2][x]);
 				Path south = new Path(southNumber, "SOUTH");
 				paths.add(south);
 			}
 			if (direction.contains("WEST")) {
-				int westNumber = Integer.parseInt(maze2D[y][x-2]);
+				int westNumber = Integer.parseInt(maze2D[y][x - 2]);
 				Path west = new Path(westNumber, "WEST");
 				paths.add(west);
 			}
-			
+
 			Path path1 = paths.remove(0);
 			Path path2 = paths.remove(0);
-			
+
 			if (path1.getNumber() < path2.getNumber()) {
 				String finalDirection = path1.getDirection();
-				
+
 				if (finalDirection == "NORTH") {
-					current = new Cell(current.getx(), current.gety()-1);
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx(), current.gety() - 1);
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				} else if (finalDirection == "EAST") {
-					current = new Cell(current.getx()+1, current.gety());
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx() + 1, current.gety());
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				} else if (finalDirection == "SOUTH") {
-					current = new Cell(current.getx(), current.gety()+1);
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx(), current.gety() + 1);
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				} else if (finalDirection == "WEST") {
-					current = new Cell(current.getx()-1, current.gety());
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx() - 1, current.gety());
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				}
 			} else {
 				String finalDirection = path2.getDirection();
-				
+
 				if (finalDirection == "NORTH") {
-					current = new Cell(current.getx(), current.gety()-1);
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx(), current.gety() - 1);
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				} else if (finalDirection == "EAST") {
-					current = new Cell(current.getx()+1, current.gety());
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx() + 1, current.gety());
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				} else if (finalDirection == "SOUTH") {
-					current = new Cell(current.getx(), current.gety()+1);
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx(), current.gety() + 1);
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				} else if (finalDirection == "WEST") {
-					current = new Cell(current.getx()-1, current.gety());
-					maze2D[2*current.gety()+1][2*current.getx()+1] = "#";
+					current = new Cell(current.getx() - 1, current.gety());
+					maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 				}
 			}
-			
-			
+		} else {
+
+			if (direction.contains("NORTH")) {
+				current = new Cell(current.getx(), current.gety() - 1);
+				maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			}
+			if (direction.contains("EAST")) {
+				current = new Cell(current.getx() + 1, current.gety());
+				maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			}
+			if (direction.contains("SOUTH")) {
+				current = new Cell(current.getx(), current.gety() + 1);
+				maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			}
+			if (direction.contains("WEST")) {
+				current = new Cell(current.getx() - 1, current.gety());
+				maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			}
 		}
-		
-		return null;
+
+		return maze2D;
 	}
 }
