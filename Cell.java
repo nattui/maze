@@ -1,5 +1,9 @@
 package maze;
 
+/**
+ * @author Nhat Nguyen
+ * @author Jasmine Mai
+ */
 public class Cell {
 	private Cell node;
 	private int x;
