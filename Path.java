@@ -1,5 +1,10 @@
 package maze;
 
+/**
+ * 
+ * @author Nhat Nguyen
+ * @author Jasmine Mai
+ */
 public class Path {
 	private int number;
 	private String direction;
