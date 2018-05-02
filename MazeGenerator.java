@@ -66,7 +66,7 @@ public class MazeGenerator {
 			// print2D(mazeDFS);
 			// System.out.println("DFS Maze as 2D Array");
 			System.out.println();
-			
+
 			// String representation of DFS
 			System.out.println(convert2D(mazeDFS));
 			System.out.println("String representation of DFS Maze");
@@ -103,14 +103,16 @@ public class MazeGenerator {
 			// System.out.println("Press anything to repeat the program.");
 			// Object repeat = scan.next();
 			// //System.out.println("Press anything to repeat the program.");
-			
+
 			System.out.println(Integer.parseInt("10P"));
 		}
 	}
 
 	/**
 	 * Prints the 2D matrix
-	 * @param array2D The 2D matrix that represents the maze
+	 * 
+	 * @param array2D
+	 *            The 2D matrix that represents the maze
 	 */
 	public static void print2D(String[][] array2D) {
 		for (String[] row : array2D) {
@@ -121,7 +123,8 @@ public class MazeGenerator {
 	/**
 	 * Clones 2D array to new 2D array
 	 * 
-	 * @param maze2D The 2D matrix that represents the maze
+	 * @param maze2D
+	 *            The 2D matrix that represents the maze
 	 * @return clone2D The copy of the 2D matrix that represents the maze
 	 */
 	public static String[][] clone(String[][] maze2D) {
@@ -654,20 +657,57 @@ public class MazeGenerator {
 
 		return current;
 	}
-	
+
 	// Creating the path
 	public static String[][] path(String[][] maze2D) {
 		int size = (maze2D.length - 1) / 2;
+		
 		Cell current = new Cell(size, size);
+		int x = 2 * current.getx() + 1;
+		int y = 2 * current.gety() + 1;
 		
-		maze2D[2*size][2*size] = "#";
-		
-		while (true) {
-			// Checks NORTH
-			if (maze2D[2*current.gety()][2*current.getx()+1] == " " ) {
-				
-			}
+		int currentNumber = Integer.parseInt(maze2D[2 * size][2 * size]);
+		maze2D[2 * size][2 * size] = "#";
+
+		// Generates a unique direction
+		ArrayList<String> direction = new ArrayList<>();
+		Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
+
+		// Remove NORTH
+		if (current.gety() - 1 < 0) {
+			direction.remove("NORTH");
+		} else if (maze2D[y - 1][x] == "-") {
+			direction.remove("NORTH");
+		} else if (maze2D[y - 2][x] == " ") {
+			direction.remove("NORTH");
 		}
-		//return null;
+		// Remove EAST
+		if (current.getx() + 1 >= size) {
+			direction.remove("EAST");
+		} else if (maze2D[y][x + 1] == "|") {
+			direction.remove("EAST");
+		} else if (maze2D[y][x + 2] == " ") {
+			direction.remove("EAST");
+		}
+		// Remove SOUTH
+		if (current.gety() + 1 >= size) {
+			direction.remove("SOUTH");
+		} else if (maze2D[y + 1][x] == "-") {
+			direction.remove("SOUTH");
+		} else if (maze2D[y + 2][x] == " ") {
+			direction.remove("SOUTH");
+		}
+		// Remove WEST
+		if (current.getx() - 1 < 0) {
+			direction.remove("WEST");
+		} else if (maze2D[y][x - 1] == "|") {
+			direction.remove("WEST");
+		} else if (maze2D[y][x - 1] == " ") {
+			direction.remove("WEST");
+		}
+
+		
+		
+		return null;
 	}
 }
