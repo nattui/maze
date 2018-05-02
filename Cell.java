@@ -4,7 +4,6 @@ public class Cell {
 	private Cell node;
 	private int x;
 	private int y;
-	private boolean visited;
 	
 	public Cell(int x, int y) {
 		this.x = x;
@@ -21,12 +20,6 @@ public class Cell {
 	}
 	public void setNext(Cell node) {
 		this.node = node;
-	}
-	public boolean isVisited() {
-		return visited;
-	}
-	public void setVisited() {
-		visited = true;
 	}
 	public String toString() {
 		return "[" + x + ":" + y + "]";
