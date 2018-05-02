@@ -104,7 +104,7 @@ public class MazeGenerator {
 			// Object repeat = scan.next();
 			// //System.out.println("Press anything to repeat the program.");
 
-			System.out.println(Integer.parseInt("10P"));
+			// System.out.println(Integer.parseInt("10P"));
 		}
 	}
 
@@ -707,23 +707,48 @@ public class MazeGenerator {
 		}
 
 		if (direction.size() == 2) {
+			ArrayList<Path> paths = new ArrayList<>();
+			
 			if (direction.contains("NORTH")) {
 				int northNumber = Integer.parseInt(maze2D[y-2][x]);
 				Path north = new Path(northNumber, "NORTH");
+				paths.add(north);
 			}
 			if (direction.contains("EAST")) {
 				int eastNumber = Integer.parseInt(maze2D[y][x+2]);
 				Path east = new Path(eastNumber, "EAST");
+				paths.add(east);
 			}
 			if (direction.contains("SOUTH")) {
 				int southNumber = Integer.parseInt(maze2D[y+2][x]);
 				Path south = new Path(southNumber, "SOUTH");
+				paths.add(south);
 			}
 			if (direction.contains("WEST")) {
 				int westNumber = Integer.parseInt(maze2D[y][x-2]);
 				Path west = new Path(westNumber, "WEST");
+				paths.add(west);
 			}
 			
+			Path path1 = paths.remove(0);
+			Path path2 = paths.remove(0);
+			
+			if (path1.getNumber() < path2.getNumber()) {
+				String finalDirection = path1.getDirection();
+				
+				if (finalDirection == "NORTH") {
+					current = new Cell(current.getx(), current.gety()-1);
+				} else if (finalDirection == "EAST") {
+					current = new Cell(current.getx()+1, current.gety());
+				} else if (finalDirection == "SOUTH") {
+					current = new Cell(current.getx(), current.gety()+1);
+				} else if (finalDirection == "WEST") {
+					current = new Cell(current.getx()-1, current.gety());
+				}
+				current = new Cell(current.getx(), current.getx());
+			} else {
+				
+			}
 			
 			
 		}
