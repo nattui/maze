@@ -194,7 +194,7 @@ public class MazeGenerator {
 	/**
 	 * The valid spot returns all the valid spot given a cell location
 	 * 
-	 * @param maze2D The maze from the maze2D 
+	 * @param maze2D The maze from maze2D method 
 	 * @param current The current located cell 
 	 * @param direction The list of directions
 	 * @return random The valid random direction
@@ -440,7 +440,14 @@ public class MazeGenerator {
 		return maze2D;
 	}
 
-	// Checks if DFS is valid
+	/**
+	 * Checks if direction is valid in DFS
+	 * 
+	 * @param maze2D The maze from DFS method
+	 * @param current The current located cell
+	 * @param direction The list of directions
+	 * @return random The valid random direction
+	 */
 	public static String DFSValid(String[][] maze2D, Cell current, ArrayList<String> direction) {
 		int size = (maze2D.length - 1) / 2;
 		int x = 2 * current.getx() + 1;
@@ -498,12 +505,16 @@ public class MazeGenerator {
 		return random;
 	}
 
-	// Move DFS location
+	/**
+	 * Move to the direction given in DFS
+	 * 
+	 * @param maze2D The maze from DFS method
+	 * @param current The current located cell
+	 * @param random The valid random direction
+	 * @param count The number presented in each cell
+	 * @return current The new current cell
+	 */
 	public static Cell DFSMove(String[][] maze2D, Cell current, String random, int count) {
-
-		// Prints out the coordinates of the current cell object
-		// System.out.println(" X-coordinate: " + current.getx() + ", Y-coordinate: " +
-		// current.gety());
 
 		String path = Integer.toString(count % 10);
 
@@ -555,7 +566,6 @@ public class MazeGenerator {
 
 	}
 
-	// 
 	/**
 	 * Breadth-first Search (BFS)
 	 * 
@@ -586,7 +596,13 @@ public class MazeGenerator {
 		return maze2D;
 	}
 
-	// Checks if BFS is valid
+	/**
+	 * Checks if direction is valid in BFS
+	 * 
+	 * @param maze2D The maze from DFS method
+	 * @param current The current located cell
+	 * @return direction The valid random direction
+	 */
 	public static ArrayList<String> BFSValid(String[][] maze2D, Cell current) {
 		int size = (maze2D.length - 1) / 2;
 		int x = 2 * current.getx() + 1;
@@ -596,9 +612,7 @@ public class MazeGenerator {
 		ArrayList<String> direction = new ArrayList<>();
 		Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
 
-		// System.out.println("BEGINNING: " + direction);
-
-		// Remove NORTH
+		// Removes NORTH
 		if (current.gety() - 1 < 0) {
 			// System.out.println("Do not go NORTH because outside of range of the 2D
 			// array");
@@ -607,7 +621,7 @@ public class MazeGenerator {
 			// System.out.println("Do not go NORTH because there is a wall");
 			direction.remove("NORTH");
 		}
-		// Remove EAST
+		// Removes EAST
 		if (current.getx() + 1 >= size) {
 			// System.out.println("Do not go EAST because outside of range of the 2D
 			// array");
@@ -616,7 +630,7 @@ public class MazeGenerator {
 			// System.out.println("Do not go EAST because there is a wall");
 			direction.remove("EAST");
 		}
-		// Remove SOUTH
+		// Removes SOUTH
 		if (current.gety() + 1 >= size) {
 			// System.out.println("Do not go SOUTH because outside of range of the 2D
 			// array");
@@ -625,7 +639,7 @@ public class MazeGenerator {
 			// System.out.println("Do not go SOUTH because there is a wall");
 			direction.remove("SOUTH");
 		}
-		// Remove WEST
+		// Removes WEST
 		if (current.getx() - 1 < 0) {
 			// System.out.println("Do not go WEST because outside of range of the 2D
 			// array");
@@ -636,12 +650,20 @@ public class MazeGenerator {
 		}
 
 		Collections.shuffle(direction);
-		// System.out.println(direction);
 
 		return direction;
 	}
 
-	// Move BFS location
+	/**
+	 * Move to the direction given in BFS
+	 * 
+	 * @param maze2D The maze from BFS method
+	 * @param current The current located cell
+	 * @param neighborQueue The queue for all the neighbors
+	 * @param direction The valid random direction
+	 * @param count The number presented in each cell
+	 * @return current The new current cell
+	 */
 	public static Cell BFSMove(String[][] maze2D, Cell current, Queue<Cell> neighborQueue, ArrayList<String> direction,
 			int count) {
 
@@ -768,16 +790,11 @@ public class MazeGenerator {
 
 			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
 			current = current.getNext();
-			// System.out.println(current);
-			//System.out.println(maze2D.length + "  " + maze2D[0].length);
-			//System.out.println(maze2D[current.getx()][current.gety()]);
-			//System.out.println(current.getx() + "  " + current.gety());
 		}
 
 		maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
-		//System.out.println(path);
 
-		// Deletes all extra numbers
+		// Deletes all the extra numbers
 		for (int columnIndex = 0; columnIndex < maze2D.length; columnIndex++) {
 			for (int rowIndex = 0; rowIndex < maze2D.length; rowIndex++) {
 				if (!(maze2D[columnIndex][rowIndex] == "+" 
