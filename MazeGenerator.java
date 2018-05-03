@@ -2,7 +2,6 @@ package maze;
 
 import java.util.Scanner;
 import java.util.Stack;
-import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -54,7 +53,7 @@ public class MazeGenerator {
 			// Prints the string representation of maze
 			System.out.println(convert2D(mazeGenerated));
 			System.out.println("String Representation of Generated " + size + "x" + size + " Maze");
-			System.out.println();
+			// System.out.println();
 
 			// Delete the Hash symbol in the maze
 			mazeGenerated = emptyHash(mazeGenerated);
@@ -75,48 +74,26 @@ public class MazeGenerator {
 
 			// Breadth First Search
 			String[][] mazeBFS = BFS(clone(mazeGenerated));
-			print2D(mazeBFS);
-			System.out.println("BFS Maze as 2D Array");
-			System.out.println();
+			// print2D(mazeBFS);
+			// System.out.println("BFS Maze as 2D Array");
+			// System.out.println();
 
 			System.out.println(convert2D(mazeBFS));
 			System.out.println("String representation of BFS Maze");
 			System.out.println();
 
 			// String representation of DFS
-			String[][] mazePath = path(clone(mazeGenerated));
-			print2D(emptyHash(mazePath));
-			System.out.println(convert2D(mazePath));
-			System.out.println("Hash Single Path");
-
-			// Queue<Cell> q = new LinkedList<Cell>();
-			// q.add(new Cell(1, 1));
-			// q.add(new Cell(1, 2));
-			// q.add(new Cell(2, 1));
-			// q.add(new Cell(2, 2));
-			// System.out.println("Elements of queue: " + q);
-			// System.out.println("Queue removed: " + q.remove());
-			// System.out.println("Head of the queue: " + q.peek());
-			// System.out.println("Elements of queue: " + q);
-
-			// ArrayList<String> direction = new ArrayList<>();
-			// Collections.addAll(direction, "NORTH", "EAST", "SOUTH", "WEST");
-			// direction.add("FAKE");
-			// System.out.println("Stack removed: " + direction.remove(direction.size() -
-			// 1));
-
-			// System.out.println("-------------------------------------------------------------------");
-			// String[][] path = path(mazeBFS);
-			// print2D(path);
+			String[][] mazePath = backtrackingDelete(clone(mazeGenerated));
+			emptyHash(mazePath);
+			// System.out.println("Broken Path as 2D array");
 			// System.out.println();
-			// System.out.println(Addhash(path));
-			// System.out.println("Hash Single Path");
 
-			// System.out.println("Press anything to repeat the program.");
-			// Object repeat = scan.next();
-			// //System.out.println("Press anything to repeat the program.");
+			hashList(mazePath);
+			System.out.println();
+			// print2D(mazePath);
 
-			// System.out.println(Integer.parseInt("10P"));
+			System.out.println(printPath(mazePath));
+			System.out.println("Hash Single Path");
 		}
 	}
 
@@ -422,12 +399,7 @@ public class MazeGenerator {
 			String random = DFSValid(maze2D, current, direction);
 			// System.out.println("The FINAL DIRECTION: " + random);
 
-			
-			
 			if (random == "BACKTRACK") {
-
-				maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = " ";
-
 				current = location.pop();
 				continue;
 			}
@@ -674,8 +646,8 @@ public class MazeGenerator {
 		return current;
 	}
 
-	// Creating the path
-	public static String[][] path(String[][] maze2D) {
+	// Deletes the backtracking way of the maze
+	public static String[][] backtrackingDelete(String[][] maze2D) {
 		Stack<Cell> location = new Stack<Cell>();
 		int size = (maze2D.length - 1) / 2;
 		int totalCells = size * size;
@@ -707,12 +679,89 @@ public class MazeGenerator {
 				return maze2D;
 			}
 		}
-
 		return maze2D;
 	}
 
-	// Creates a single hash path
-	public static String changeHash(String[][] maze2D) {
+	// Creates the path
+	public static ArrayList<Cell> hashList(String[][] maze2D) {
+		int size = (maze2D.length - 1) / 2;
+		ArrayList<Cell> path = new ArrayList<>();
+		Cell current = new Cell(0, 0);
+		path.add(current);
+
+		while (current.getx() != size - 1 || current.gety() != size - 1) {
+
+			// System.out.println("AFTER");
+
+			// NORTH
+			if (current.gety() - 1 < 0) {
+				// Do Nothing
+			} else if (maze2D[2 * current.gety()][2 * current.getx() + 1] == " "
+					&& maze2D[2 * current.gety() - 1][2 * current.getx() + 1] != " "
+					&& maze2D[2 * current.gety() - 1][2 * current.getx() + 1] != "#") {
+
+				path.add(new Cell(current.getx(), current.gety() - 1));
+				current.setNext(new Cell(current.getx(), current.gety() - 1));
+
+			}
+
+			// EAST
+			if (current.getx() + 1 >= size) {
+				// Do Nothing
+			} else if (maze2D[2 * current.gety() + 1][2 * current.getx() + 2] == " "
+					&& maze2D[2 * current.gety() + 1][2 * current.getx() + 3] != " "
+					&& maze2D[2 * current.gety() + 1][2 * current.getx() + 3] != "#") {
+
+				path.add(new Cell(current.getx() + 1, current.gety()));
+				current.setNext(new Cell(current.getx() + 1, current.gety()));
+			}
+
+			// SOUTH
+			if (current.gety() + 1 >= size) {
+				// Do Nothing
+			} else if (maze2D[2 * current.gety() + 2][2 * current.getx() + 1] == " "
+					&& maze2D[2 * current.gety() + 3][2 * current.getx() + 1] != " "
+					&& maze2D[2 * current.gety() + 3][2 * current.getx() + 1] != "#") {
+
+				path.add(new Cell(current.getx(), current.gety() + 1));
+				current.setNext(new Cell(current.getx(), current.gety() + 1));
+			}
+
+			// WEST
+			if (current.getx() - 1 < 0) {
+				// Do Nothing
+			} else if (maze2D[2 * current.gety() + 1][2 * current.getx()] == " "
+					&& maze2D[2 * current.gety() + 1][2 * current.getx() - 1] != " "
+					&& maze2D[2 * current.gety() + 1][2 * current.getx() - 1] != "#") {
+
+				path.add(new Cell(current.getx() - 1, current.gety()));
+				current.setNext(new Cell(current.getx() - 1, current.gety()));
+			}
+
+			maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+			current = current.getNext();
+			// System.out.println(current);
+		}
+
+		maze2D[2 * current.gety() + 1][2 * current.getx() + 1] = "#";
+		System.out.println(path);
+
+		// Deletes all extra numbers
+		for (int columnIndex = 0; columnIndex < maze2D.length; columnIndex++) {
+			for (int rowIndex = 0; rowIndex < maze2D.length; rowIndex++) {
+				if (!(maze2D[columnIndex][rowIndex] == "+" 
+						|| maze2D[columnIndex][rowIndex] == "-"
+						|| maze2D[columnIndex][rowIndex] == "|"
+						|| maze2D[columnIndex][rowIndex] == "#" )) {
+					maze2D[columnIndex][rowIndex] = " ";
+				}
+			}
+		}
+
+		return path;
+	}
+
+	public static String printPath(String[][] maze2D) {
 		String maze = "";
 		int size = maze2D.length;
 		for (int columnIndex = 0; columnIndex < size; columnIndex++) {
@@ -732,7 +781,7 @@ public class MazeGenerator {
 					}
 				} else if (maze2D[columnIndex][rowIndex] == "#" && columnIndex % 2 == 0) {
 					// Hash symbol and column is even
-					maze = maze + "   ";
+					maze = maze + " # ";
 				} else if (maze2D[columnIndex][rowIndex] == "S" || maze2D[columnIndex][rowIndex] == "E") {
 					maze = maze + "   ";
 				} else if (maze2D[columnIndex][rowIndex] == " " && columnIndex % 2 == 1 && rowIndex % 2 == 0) {
@@ -742,8 +791,7 @@ public class MazeGenerator {
 					// Spacing for the cell
 					maze = maze + "   ";
 				} else {
-					// maze = maze + " " + maze2D[columnIndex][rowIndex] + " ";
-					maze = maze + "   ";
+					maze = maze + " " + maze2D[columnIndex][rowIndex] + " ";
 				}
 
 				// When rowIndex is at end AND columnIndex is not at end, add a new line
