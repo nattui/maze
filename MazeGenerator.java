@@ -18,7 +18,9 @@ import java.util.Queue;
 public class MazeGenerator {
 
 	/**
-	 * Constructor for JUnit
+	 * Constructor for JUnit testing
+	 * 
+	 * @param size The size of the maze
 	 */
 	public MazeGenerator(int size) {
 		System.out.println("-------------------------------------------------------------------");
