@@ -1,6 +1,8 @@
 package maze;
 
 /**
+ * The Cell class keeps the location and set and get the next Cell
+ * 
  * @author Nhat Nguyen
  * @author Jasmine Mai
  */
