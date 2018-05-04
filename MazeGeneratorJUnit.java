@@ -1,7 +1,6 @@
 package maze;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Scanner;
@@ -32,7 +31,8 @@ class MazeGeneratorJUnit {
 		// Shows different unique random maze for same size
 		assertNotEquals(maze1, maze2);
 
-		// Check for the total number of visited cells. This must be equal to total cells
+		// Check for the total number of visited cells. This must be equal to total
+		// cells
 		assertEquals(maze1.visitedCells(size), maze2.visitedCells(size));
 
 		System.out.println();
