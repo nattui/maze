@@ -92,8 +92,7 @@ public class MazeGenerator {
 	/**
 	 * Creates an empty non-generated maze
 	 * 
-	 * @param size
-	 *            The size of the maze
+	 * @param size The size of the maze
 	 * @return maze2D The empty non-generated maze
 	 */
 	public static String[][] maze2D(int size) {
