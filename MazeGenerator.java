@@ -76,8 +76,7 @@ public class MazeGenerator {
 	/**
 	 * Clones 2D array to new 2D array
 	 * 
-	 * @param maze2D
-	 *            The 2D matrix that represents the maze
+	 * @param maze2D The 2D matrix that represents the maze
 	 * @return clone2D The copy of the 2D matrix that represents the maze
 	 */
 	public static String[][] clone(String[][] maze2D) {
