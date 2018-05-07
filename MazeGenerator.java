@@ -134,8 +134,7 @@ public class MazeGenerator {
 	/**
 	 * Creates a valid generated maze that has a path from the begining to end
 	 * 
-	 * @param maze2D
-	 *            The empty non-generated maze
+	 * @param maze2D The empty non-generated maze
 	 * @return maze2D The empty generated maze
 	 */
 	public static String[][] generator(String[][] maze2D) {
