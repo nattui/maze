@@ -172,8 +172,7 @@ public class MazeGenerator {
 	/**
 	 * The valid spot returns all the valid spot given a cell location
 	 * 
-	 * @param maze2D
-	 *            The maze from maze2D method
+	 * @param maze2D The maze from maze2D method
 	 * @param current
 	 *            The current located cell
 	 * @param direction
