@@ -174,8 +174,7 @@ public class MazeGenerator {
 	 * 
 	 * @param maze2D The maze from maze2D method
 	 * @param current The current located cell
-	 * @param direction
-	 *            The list of directions
+	 * @param direction The list of directions
 	 * @return random The valid random direction
 	 */
 	public static String validSpot(String[][] maze2D, Cell current, ArrayList<String> direction) {
