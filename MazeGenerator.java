@@ -326,8 +326,7 @@ public class MazeGenerator {
 	/**
 	 * Converts 2D array maze to the string representation
 	 * 
-	 * @param maze2D
-	 *            The maze that will be convert to string representation
+	 * @param maze2D The maze that will be convert to string representation
 	 * @return maze The string representation of the maze
 	 */
 	public static String convert2D(String[][] maze2D) {
