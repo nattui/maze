@@ -374,8 +374,7 @@ public class MazeGenerator {
 	/**
 	 * Delete all the hash symbols in the maze
 	 * 
-	 * @param maze2D
-	 *            The maze with hash symbols
+	 * @param maze2D The maze with hash symbols
 	 * @return maze2D The maze with deleted hash symbols
 	 */
 	public static String[][] emptyHash(String[][] maze2D) {
