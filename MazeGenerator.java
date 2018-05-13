@@ -248,8 +248,7 @@ public class MazeGenerator {
 	/**
 	 * Move the next cell and break the wall in between
 	 * 
-	 * @param maze2D
-	 *            The maze from the maze2D
+	 * @param maze2D The maze from the maze2D
 	 * @param current
 	 *            The current located cell
 	 * @param random
